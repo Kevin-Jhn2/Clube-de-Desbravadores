@@ -1,0 +1,66 @@
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 200vh;
+}
+
+header{
+    text-align: center;
+    background-color: rgb(231, 243, 245);
+    color: rgb(0, 0, 0);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+nav{
+    display: flex;
+    
+}
+main{
+    flex: 1;
+}
+footer{
+    text-align: center;
+    
+}
+.section2 {
+    height: 200px;
+    width: 100%;
+    background-color: #faf542;
+    background-position: center;
+}
+
+nav {
+    justify-content: space-evenly;
+    background-color: #4247FA;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+.section1{
+    height: 400px;
+    width: 100%;
+    background-color: gray;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../Imagens/fanfarrajpeg.jpeg');
+    background-size:cover;
+    background-position: center;
+    
+    /* color: white; */
+    /* align-items: center;
+    justify-content: center;
+     */
+}
+.texto{
+    /* justify-content: center; */
+    align-content:center;
+    text-align: center;
+    color: white;
+    /* align-items: center; */
+}
+
+
+/* cor amarela #faf542 */
