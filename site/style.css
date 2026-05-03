@@ -11,13 +11,19 @@ body{
 }
 
 header{
-    text-align: center;
-    background-color: rgb(231, 243, 245);
-    color: rgb(0, 0, 0);
+    display:flex;
+    justify-content: center;
+    background-color: rgb(114, 6, 6);
+    color: rgb(255, 255, 255);
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 nav{
     display: flex;
+    justify-content: space-evenly;
+    background-image: linear-gradient(rgb(66, 71, 250), rgb(74, 0, 192));
+    position: sticky;
+    top: 0;
+    width: 100%;
     
 }
 main{
@@ -27,33 +33,31 @@ footer{
     text-align: center;
     
 }
-.section2 {
-    height: 200px;
-    width: 100%;
-    background-color: #faf542;
-    background-position: center;
-}
 
-nav {
-    justify-content: space-evenly;
-    background-color: #4247FA;
-    position: sticky;
-    top: 0;
-    width: 100%;
-}
 .section1{
-    height: 400px;
+    height: 600px;
     width: 100%;
-    background-color: gray;
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../Imagens/fanfarrajpeg.jpeg');
     background-size:cover;
     background-position: center;
-    
-    /* color: white; */
-    /* align-items: center;
-    justify-content: center;
-     */
 }
+
+.section2 {
+    height: 650px;
+    width: 100%;
+    background-color: #ffffff;
+    background-position: center;
+}
+
+.section3{
+    height:500px;
+    width:100%;
+    background-color: rgb(250, 247, 77);
+    background-position:center;
+}
+/*  */
+/* amarelo #faf542 */
+/* rgb(250, 130, 100) vermelho */
 .texto{
     /* justify-content: center; */
     align-content:center;
@@ -61,6 +65,26 @@ nav {
     color: white;
     /* align-items: center; */
 }
-
+.imagem{
+    display:flex;
+    margin: 10px;
+    justify-content:space-evenly;
+}
+.imagem1{
+    height: 400px;
+    width: 48%;
+    background-color: gray;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../Imagens/Campori-UCB-2017_3.jpeg');
+    background-size:cover;
+    background-position: center bottom;
+}
+.imagem2{
+    height: 400px;
+    width: 48%;
+    background-color: gray;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../Imagens/Campori-UCB-2017_1.jpeg');
+    background-size:cover;
+    background-position: center bottom;
+}
 
 /* cor amarela #faf542 */
