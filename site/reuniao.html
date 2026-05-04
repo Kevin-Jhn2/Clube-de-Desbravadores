@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleReuniao.css">
+    <title>Reuniões</title>
+</head>
+<!-- Esse daqui tem como objetivo ser a tela de reunião, onde a pessoa pode:
+ adicionar unidades, adicionar pessoas nas unidades e adicionar pontos para cada pessoa,
+ podendo ter uma descrição do que é aquela pontuação (tendo uns exemplos ao lado). É uma tela simples,
+ devo focar mais na lógica do que no CSS, afinal é isso que vai contar -->
+<body>
+    <div>
+        <h3>Adicionar novas unidades</h3>
+        <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
+        <button onclick="addunidades()">Adicionar Unidades</button>
+    </div>
+    <div>
+        <h3>Adicionar membro em unidade</h3>
+        <input type="text" id="iptMembro" placeholder="Nome completo do membro">
+        <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
+        <button onclick="addmembros()">Adicionar membros</button>
+        
+    </div>
+    <div>
+        <h3>Adicionar pontos a membros</h3>
+        <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
+        <button onclick="addpontos()">Adicionar Pontos</button>
+    </div>
+</body>
+</html>
+<script>
+    // o site precisa ser personalizado conforme o usuario, ou seja, ao fazer o login, as informações do JSON já deve ser
+    // os dados do usuario, no caso, o clube que ele está inserido
+
+// (
+    // Ter um banco de dados que possua o database Desbravadores, com as tabelas Cadastro, Clube, Membros e Reuniões (ligadas ao Clube)
+    // A tabela Cadastro terá colunas de Nome, Senha, fkClube, e email
+    // A tabela Clube terá as colunas Unidades
+    // Fazer conexão com o banco de dados para deixar fixo as coisas
+// )
+
+    // Ter um JSON que possua nome(do clube) e unidades
+    // Esse JSON será usado por todos os botões
+    // No nome do clube, será 
+    // Em unidades, terá o nome(da unidade), a pontuação total(soma dos pontos individuais), os membros
+    // Em membros, terá o nome(do membro), a pontuação individual, e o cargo do membro
+    let clube = [];
+
+    // o vetor clube irá receber o JSON unidade, assim tendo vários JSON com colunas próprias
+    // salvar localmente por enquanto e levar para a IA ver se está certo
+    function addunidades(){
+        let nomeUnidade = iptUnidade.value;
+        // JSON unidade, contém nome, membros (array) e pontuação
+        let unidade = {
+            nome: nomeUnidade,
+            membros: [],
+            Pontos: 0
+        }
+        // Adicionar unidade, verificando se há replica e se os campos foram preenchidos
+        if(nomeUnidade == ""){
+            console.log("Campo não preenchido")
+        }else{
+            // Réplicas de Unidade, talvez eu devesse colocar somente se o nome for o mesmo
+            let duplicata = false;
+            for(let i = 0; i <clube.length; i++){
+                let elementoUnidade = clube[i];
+                if(elementoUnidade.nome.toLowerCase() == nomeUnidade.toLowerCase()){
+                    duplicata = true;
+                    break;
+                };
+            };
+            console.log(duplicata)
+            if(duplicata == false){
+                clube.push(unidade);
+                console.log(`Unidade ${unidade.nome} adicionada: `, JSON.stringify(clube, null, 2));
+            }else{
+
+                // Deixa mais bonito  
+                // console.table(clube)
+                console.log(`Unidade ${nomeUnidade} já existe: `, JSON.stringify(clube, null, 2));
+                // console.log(JSON.stringify(clube, null, 2)); Deixa já aberto
+                // console.log( clube); aparece como clickável
+            };
+        };
+    };
+// Adicionar membros na unidade X, o campo não pode ser nulo,
+    function addmembros(){
+        let unidade = ipt_unidade.value;
+        let membro = iptMembro.value;
+
+        if(unidade == "" || membro == ""){
+            console.log("Preencha todos os campos");
+        }else{
+            // verificar se a unidade existe pelo nome
+            let encontrou = -1;
+            for(let i = 0; i < clube.length; i++){
+                let nome_unidade = clube[i].nome;
+                if(nome_unidade.toLowerCase() == unidade.toLowerCase()){
+                    encontrou = i;
+                    break;
+                }
+            };
+            // A unidade existe e o índice será usado para colocar o input do membro exatamente na coluna membros
+            if(encontrou != -1){
+                clube[encontrou].membros.push(membro)
+                console.log(`Membro ${membro} adicionado na unidade ${unidade}`)
+            }
+            // A unidade não existe
+            else{
+                console.log("A unidade " + unidade.toLowerCase() + " não existe")
+            };
+            console.log("O JSON ficou assim: ", JSON.stringify(clube, null, 2))
+            
+        };
+iptMembro.value = "";
+// apenas avisa o usuário
+// Unidades: O nome deve ser ÚNICO (não existem duas unidades "Águia").
+// Membros: O nome pode REPETIR (pois são pessoas diferentes).
+
+    }
+    function addpontos(){
+        let ponto = iptPonto.value;
+        pontos.push(ponto);
+        console.log(pontos);
+    }
+</script>
