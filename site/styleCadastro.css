@@ -39,8 +39,8 @@ body, html{
 .inputs{
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
 }
 div div div{
     margin: 6px;

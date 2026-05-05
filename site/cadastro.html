@@ -16,10 +16,17 @@
                 </div>
                 <div class="inputs">
                     <div>Oi</div>
+                    <!-- nome é para estar na homepage, dizendo bem-vindo, nome -->
                     <div><input type="text" id="ipt_nome" placeholder="Insira seu login..."></div>
                     <div>Oi</div>
+                    <!-- email usado para o login do usuario, de fato, precisa fazer a verificação -->
+                    <div><input type="text" id="ipt_email" placeholder="Insira seu email"></div>
+                    <!-- senha, por enquanto será uma string mesmo, porque não sei como dar hash no BD -->
                     <div><input type="text" id="ipt_senha" placeholder="Insira sua senha..."></div>
-                    <div><button onclick="">Cadastrar</button></div>
+                    <!-- nome do clube, será usado para dar mais personalidade, também -->
+                     <!-- quando eu tiver tempo, eu coloco uma página de alterar cadastro ou talvez não -->
+                    <div><input type="text" id="ipt_clube" placeholder="Insira o nome do Clube"></div>
+                    <div><button onclick="cadastrar()">Cadastrar</button></div>
                 </div>
                 
             </div>
@@ -28,3 +35,11 @@
     </main>
 </body>
 </html>
+<script>
+    let usuarios = [];
+    let nome = ipt_nome.value;
+    let senha = ipt_senha.value;
+    function cadastrar(){
+
+    }
+</script>

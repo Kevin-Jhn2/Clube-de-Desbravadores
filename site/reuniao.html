@@ -10,23 +10,32 @@
  adicionar unidades, adicionar pessoas nas unidades e adicionar pontos para cada pessoa,
  podendo ter uma descrição do que é aquela pontuação (tendo uns exemplos ao lado). É uma tela simples,
  devo focar mais na lógica do que no CSS, afinal é isso que vai contar -->
+ <!-- nota para o sistema, quando for deletar talvez colocar uma confirmação, afinal vai afetar a dashboard -->
 <body>
     <div>
         <h3>Adicionar novas unidades</h3>
         <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
         <button onclick="addunidades()">Adicionar Unidades</button>
+        <h3>Remover unidades</h3>
+        <input type="text" id="R_unidade" placeholder="Nome da Unidade">
+        <button onclick="delunidades()">Remover unidade</button>
     </div>
     <div>
         <h3>Adicionar membro em unidade</h3>
         <input type="text" id="iptMembro" placeholder="Nome completo do membro">
         <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
         <button onclick="addmembros()">Adicionar membros</button>
-        
+        <h3>Remover membro de uma unidade</h3>
+        <input type="text" id="R_membro" placeholder="Nome do membro">
+        <input type="text" id="ipt_unidade_R_membro" placeholder="Nome da Unidade">
+        <button onclick="delmembros()">Remover membro</button>
     </div>
     <div>
-        <h3>Adicionar pontos a membros</h3>
+        <h3>Alterar pontos de membros</h3>
         <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
-        <button onclick="addpontos()">Adicionar Pontos</button>
+        <input type="text" id="ipt_membro" placeholder="Nome do membro">
+        <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
+        <button onclick="altpontos()">Adicionar Pontos</button>
     </div>
 </body>
 </html>
@@ -46,8 +55,25 @@
     // No nome do clube, será 
     // Em unidades, terá o nome(da unidade), a pontuação total(soma dos pontos individuais), os membros
     // Em membros, terá o nome(do membro), a pontuação individual, e o cargo do membro
-    let clube = [];
 
+// clube é um array que receberá um JSON unidade, tendo nome, membros(array) e pontos(pontos totais).
+// esse JSON tem um array membros, ele receberá um JSON com nome, pontosIndividuais e presença(array)
+// esse JSON tem o array presença, -----------------------
+    let clube = [];
+    // Estrutura do clube:
+    // clube = [ 
+    //   {
+    //     "nome": "",
+    //     "membros": [
+    //       {
+    //         "nome": "",
+    //         "pontosIndividuais": 0,
+    //         "presenca": []
+    //       }
+    //     ],
+    //     "pontos": 0
+    //   }
+    // ]
     // o vetor clube irá receber o JSON unidade, assim tendo vários JSON com colunas próprias
     // salvar localmente por enquanto e levar para a IA ver se está certo
     function addunidades(){
@@ -56,7 +82,7 @@
         let unidade = {
             nome: nomeUnidade,
             membros: [],
-            Pontos: 0
+            pontos: 0
         }
         // Adicionar unidade, verificando se há replica e se os campos foram preenchidos
         if(nomeUnidade == ""){
@@ -83,12 +109,52 @@
                 // console.log(JSON.stringify(clube, null, 2)); Deixa já aberto
                 // console.log( clube); aparece como clickável
             };
+            iptUnidade.value = ""
         };
-    };
+    }
+
+    function delunidades(){
+        let unidade = R_unidade.value;
+        if(unidade == ""){
+            console.log("Preencha o campo");
+        }else{
+            let indice = -1;
+            for(let b = 0;b<clube.length;b++){
+                if(clube[b].nome.toLowerCase() == unidade.toLowerCase()){
+                    indice = b;
+                    break
+                }
+            }
+            if(indice != -1){
+                let confirmar = confirm(`Deseja mesmo apagar a unidade ${clube[indice].nome}?`)
+                if (confirmar){
+                    console.log(`A unidade ${clube[indice].nome} foi removida`);
+                    clube.splice(indice, 1);
+                    console.log(JSON.stringify(clube, null, 2));
+
+                }
+            }else{
+                console.log(`Unidade ${unidade} não encontrada`)
+            };
+            R_unidade.value = ""
+        };
+    
+    
+    
+    
+    
+    }
+
 // Adicionar membros na unidade X, o campo não pode ser nulo,
     function addmembros(){
         let unidade = ipt_unidade.value;
         let membro = iptMembro.value;
+
+        let novoMembro = {
+            nome: membro,
+            pontosIndividuais: 0,
+            presenca: []
+        }
 
         if(unidade == "" || membro == ""){
             console.log("Preencha todos os campos");
@@ -104,7 +170,7 @@
             };
             // A unidade existe e o índice será usado para colocar o input do membro exatamente na coluna membros
             if(encontrou != -1){
-                clube[encontrou].membros.push(membro)
+                clube[encontrou].membros.push(novoMembro)
                 console.log(`Membro ${membro} adicionado na unidade ${unidade}`)
             }
             // A unidade não existe
@@ -113,16 +179,110 @@
             };
             console.log("O JSON ficou assim: ", JSON.stringify(clube, null, 2))
             
+            iptMembro.value = "";
+            ipt_unidade.value = ""
         };
-iptMembro.value = "";
 // apenas avisa o usuário
 // Unidades: O nome deve ser ÚNICO (não existem duas unidades "Águia").
 // Membros: O nome pode REPETIR (pois são pessoas diferentes).
 
     }
-    function addpontos(){
-        let ponto = iptPonto.value;
-        pontos.push(ponto);
-        console.log(pontos);
+
+    function delmembros(){
+        let membro = R_membro.value;
+        let unidade = ipt_unidade_R_membro.value;
+        // verificar se unidade e membro estão preenchidos
+        if(unidade == "" || membro == ""){
+            console.log("Preencha todos os campos");
+        }else{
+            // verificar se a unidade existe
+            let indice_unidade = -1;
+            for(let c = 0; c < clube.length; c++){
+                if(clube[c].nome.toLowerCase() == unidade){
+                    indice_unidade = c;
+                    break
+                }
+            }
+            // a unidade existe, agora precisa verificar se o membro existe
+            if(indice_unidade != -1){
+                let indice_membro = -1;
+                for(let d=0;d<clube[indice_unidade].membros.length; d++){
+                    if(clube[indice_unidade].membros[d].nome.toLowerCase() == membro){
+                        indice_membro = d;
+                        break;
+                    };
+                };
+                // indice_membro existe
+                if(indice_membro != -1){
+                    console.log(`O membro ${clube[indice_unidade].membros[indice_membro].nome} foi removido`);
+                    clube[indice_unidade].membros.splice(indice_membro, 1);
+                    console.log(JSON.stringify(clube, null, 2));
+                }else{
+                    console.log(`O membro ${membro} não existe na unidade ${unidade}`)
+                    console.log(JSON.stringify(clube, null, 2));
+                };
+            }else{
+                console.log(`A unidade ${unidade} não existe`)
+                console.log(JSON.stringify(clube, null, 2));
+            };
+        };
+
+    }
+
+
+
+
+    function altpontos(){
+        let ponto = Number(iptPonto.value);
+        let membro = ipt_membro.value;
+        let unidade = ipt__unidade.value
+        // Se os campos estiverem preenchidos ou não
+        if(iptPonto.value == "" || membro == "" || unidade == ""){
+            console.log("Preencha todos os campos");
+        }else{
+             // verificar se a unidade existe pelo nome
+            let encontrou = -1;
+            for(let i = 0; i < clube.length; i++){
+                let nome_unidade = clube[i].nome;
+                if(nome_unidade.toLowerCase() == unidade.toLowerCase()){
+                    encontrou = i;
+                    break;
+                }
+            };
+            // A unidade existe e o índice será usado para colocar o input do membro exatamente na coluna membros
+            if(encontrou != -1){
+                let encontroumembro = -1;
+                for(let a = 0; a<clube[encontrou].membros.length; a++){
+                    if(clube[encontrou].membros[a].nome.toLowerCase() == membro.toLowerCase()){
+                        console.log(`Encontrou o membro ${membro} na unidade ${unidade}`);
+                        encontroumembro = a;
+                        break
+                    }
+                }
+            // O membro existe e seu índice será usado para adicionar os pontos a esse membro
+                if(encontroumembro != -1){
+                    // pontos adicionados ao membro
+                    clube[encontrou].membros[encontroumembro].pontosIndividuais += (ponto);
+                    // pontos adicionados ao total de pontos da unidade
+                    clube[encontrou].pontos += ponto;
+                    console.log(`${ponto} pontos foram adicionados ao membro ${membro} na unidade ${unidade}`);
+                    console.log(JSON.stringify(clube, null, 2));
+                }
+            // O membro não existe, envia uma resposta ao usuário
+                else{
+                    console.log(`O membro ${membro} não foi encontrado`)
+                    console.log(JSON.stringify(clube, null, 2));
+                };
+            }
+            // A unidade não existe, envia uma resposta ao usuário
+            else{
+                console.log(`Unidade ${unidade} não encontrada`);
+                console.log(JSON.stringify(clube, null, 2));
+            };
+            
+            iptPonto.value = "";
+            ipt_membro.value = "";
+            ipt__unidade.value = "";
+        };
     }
 </script>
