@@ -1,0 +1,58 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    
+}
+main{
+    flex:1;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../Imagens/desbravadores.jpg");
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    align-content: center;
+    
+    
+}
+section{
+    display: flex;
+    justify-content: center;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
+    width:50vh;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    /* justify-content: center; */
+}
+div h1{
+    display: flex;
+    justify-content: center;
+    align-content:flex-start;
+    margin-top: 7vh;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin-top: 6vh;
+    /* justify-items:center; */
+}
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    background-image: linear-gradient(rgb(240, 202, 52), rgba(240, 180, 52, 0.7));
+    position: sticky;
+    top: 0;
+    width: 100%;
+    border-bottom: 3px solid #ffffff;
+    /* f0ca34 */
+    /* (rgb(66, 71, 250), rgb(74, 0, 192)) */
+}

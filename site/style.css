@@ -8,23 +8,25 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 200vh;
-}
+}   
 
 header{
     display:flex;
     justify-content: center;
-    background-color: rgb(114, 6, 6);
+    background-color: rgb(3, 43, 1);
     color: rgb(255, 255, 255);
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 nav{
     display: flex;
     justify-content: space-evenly;
-    background-image: linear-gradient(rgb(66, 71, 250), rgb(74, 0, 192));
+    background-image: linear-gradient(rgb(240, 202, 52), rgba(240, 180, 52, 0.7));
     position: sticky;
     top: 0;
     width: 100%;
-    
+    border-bottom: 3px solid #ffffff;
+    /* f0ca34 */
+    /* (rgb(66, 71, 250), rgb(74, 0, 192)) */
 }
 main{
     flex: 1;

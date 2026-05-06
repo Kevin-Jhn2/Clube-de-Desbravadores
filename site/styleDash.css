@@ -19,14 +19,14 @@ body{
     flex-direction: column;
     overflow: hidden;
 }
-header nav{
+nav{
     display: flex;
-    background-image:linear-gradient(#f0ca34, rgba(250, 183, 26, 0.9));
+    background-image:linear-gradient(rgb(240, 202, 52), rgba(250, 183, 26, 0.9));
     border-bottom: 3px solid #ffffff;
     justify-content: space-evenly;
-    height: 40px;
-    align-items: center;
     position: relative;
+    top:0;
+    width: 100%;
 }
 .titulo{
     color: #ffffff;

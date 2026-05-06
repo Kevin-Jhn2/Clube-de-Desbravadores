@@ -8,21 +8,24 @@
     <title>Cadastro</title>
 </head>
 <body>
+    <nav>
+        <ul><a href="index.html">Home</a></ul> 
+        <ul><a href="cadastro.html">Cadastro</a></ul>
+        <ul><a href="login.html">Login</a></ul>
+    </nav>
     <main class="section1">
         <section>
             <div class="cadastro">
                 <h1 class="divh1">Cadastro</h1>
-                <div>
-                </div>
                 <div class="inputs">
-                    <div>Oi</div>
+                    <!-- <div>Oi</div> -->
                     <!-- nome é para estar na homepage, dizendo bem-vindo, nome -->
-                    <div><input type="text" id="ipt_nome" placeholder="Insira seu login..."></div>
-                    <div>Oi</div>
-                    <!-- email usado para o login do usuario, de fato, precisa fazer a verificação -->
+                    <div><input type="text" id="ipt_nome" placeholder="Insira um nome de usuário"></div>
+                    <!-- <div>Oi</div> -->
+                    <!-- email usado para o login do usuario, de fato, precisa fazer a verificação, usar oninput-->
                     <div><input type="text" id="ipt_email" placeholder="Insira seu email"></div>
                     <!-- senha, por enquanto será uma string mesmo, porque não sei como dar hash no BD -->
-                    <div><input type="text" id="ipt_senha" placeholder="Insira sua senha..."></div>
+                    <div><input type="text" id="ipt_senha" placeholder="Insira sua senha"></div>
                     <!-- nome do clube, será usado para dar mais personalidade, também -->
                      <!-- quando eu tiver tempo, eu coloco uma página de alterar cadastro ou talvez não -->
                     <div><input type="text" id="ipt_clube" placeholder="Insira o nome do Clube"></div>
@@ -37,9 +40,56 @@
 </html>
 <script>
     let usuarios = [];
-    let nome = ipt_nome.value;
-    let senha = ipt_senha.value;
+    
     function cadastrar(){
-
+        let nome = ipt_nome.value;
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+        let clube = ipt_clube.value;
+        // preciso válidar se está vazio
+        if(nome == "" || email == "" || senha == "" || clube == ""){
+            console.log("Preencha todos os campos");
+        }else{
+            // precisa validar o email e validar a senha
+            // /^ serve para iniciar; [] serve para colocar a lista de caracteres; $/ serve para terminar
+            // {} serve para definir o mínimo de caracteres; i serve para dizer que não importa maiúscula ou minúscula
+            let regexEmail = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i
+            // precisa validar a senha
+            let regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._+%@!#&=?\|/-])[a-zA-Z0-9._+%@!#&=?\|/-]{8,}$/;
+            
+            // As duas validações passam
+            if(regexEmail.test(email)){
+                if(regexSenha.test(senha)){
+                    console.log(`senha e email válidos!`)
+                    // validar se já existe esse usuário
+                    let duplicata = false;
+                    for(let a=0;a<usuarios.length;a++){
+                        if(usuarios[a].email.toLowerCase() == email.toLowerCase() || usuarios[a].nome.toLowerCase() == nome.toLowerCase()){
+                            duplicata = true;
+                            break
+                        };
+                    };
+                    if(duplicata){
+                        console.log("Há uma duplicata do email ou nome de usuário");
+                        console.log(JSON.stringify(usuarios, null, 2))
+                    }else{
+                        let novoUsuario = {
+                            "nome": nome,
+                            "email": email,
+                            "senha": senha,
+                            "clube": clube
+                        }
+                        usuarios.push(novoUsuario);
+                        console.log(JSON.stringify(usuarios, null, 2))
+                        
+                    };
+                }else{
+                    console.log("Senha inválida")
+                };
+            }else{
+                console.log("Email inválido: " + email)
+            };
+        };
+        
     }
 </script>

@@ -8,16 +8,31 @@
 </head>
 <body bgcolor="#FFFFFF">
     <!-- Cabeçalho -->
-    <header>
+    <!-- <header>
         Sistema de Gerenciamento de Reuniões - Clube de Desbravadores
-    </header>
+    </header> -->
     <!-- Barra de navegação -->
 <nav>
-    <ul><ul><a href="">Home Page</a></ul></ul> <!-- Pensar melhor em como será essa navbar, alguns itens são desnecessarios, outros só devem estar no login, ou talvez para entrar no site, tem que entrar pelo login -->
+    <!-- Pensar melhor em como será essa navbar, alguns itens são desnecessarios, outros só devem estar no login, ou talvez para entrar no site, tem que entrar pelo login -->
     <!-- talvez ter somente  Reuniões  Dashboard  Sobre  -->
-    <ul><ul><a href="">Reuniões</a></ul></ul>
-    <ul><ul><a href="">Cadastro e Login</a></ul></ul>
-    <ul><ul><a href="">Sobre</a></ul></ul>
+    <!-- se for assim, acho que não consigo fazer o site ir do Login para a Dashboard ou a Reunião toda vez que eu
+    clicar no botão Reuniões ou Dashboard -->
+    <!-- uma solução para isso é colocar somente Cadastro  Login  Sobre -->
+    <!-- daí Reunião e Dashboard será numa navbar ao realizar o cadastro, nesse caso poderia ter de novo o Home Page -->
+    <!-- Só que nisso, preciso pensar em qual página ele vai logar. Será que vou precisar de outra tela, ou talvez de fato iniciar
+     pelo cadastro e login -->
+
+     <!-- Revisar todo esse texto para saber o que tirar ou não -->
+     <!-- Vou precisar fazer o LogOut -->
+
+     <!-- Decidido: a home page, o Cadastro e o Login terão como navbar (Home, Cadastro, Login, Sobre)
+     Já, a tela de acesso do cadastro e login será a Dashboard. E tanto ela quanto Reuniões terão por navbar
+     exatamente os seus nomes (Dashboard e Reuniões), além de logOut (que volta para a homePage), sendo uma navBar do lado esquerdo, para variar um pouco -->
+    <ul><a href="index.html">Home</a></ul> 
+    <ul><a href="cadastro.html">Cadastro</a></ul>
+    <ul><a href="login.html">Login</a></ul>
+    <ul><a href="#sobre">Sobre</a></ul>
+    <!-- Talvez eu deva adicionar um FAQ na navbar -->
 </nav>
 <!-- A dashboard pode ser um gráfico de presença do clube, e a pontuação média do clube, com destaque para aquele com maior pontuação em cada unidade -->
 <!-- O principal -->
@@ -45,7 +60,7 @@
             </div>
         </section>
         <section>
-            <div class="section3">
+            <div class="section3" id="sobre">
                 <div class="texto">
                     <h2>Esse será a parte do sobre</h2>
                     <p>Com muito texto</p>
@@ -56,6 +71,7 @@
         
 
     </main>
+    <!-- Se tiver tempo, fazer um logo -->
     <footer>
         oláaaaaaaaaaaaaaaaaaaaaaaa
     </footer>
