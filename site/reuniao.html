@@ -11,40 +11,82 @@
  podendo ter uma descrição do que é aquela pontuação (tendo uns exemplos ao lado). É uma tela simples,
  devo focar mais na lógica do que no CSS, afinal é isso que vai contar -->
  <!-- nota para o sistema, quando for deletar talvez colocar uma confirmação, afinal vai afetar a dashboard -->
+ 
+ <!-- Adicionar a parte de presença -->
 <body>
-    <nav>
-        <ul><a href="cadastro.html">Reuniões</a></ul>
-        <ul><a href="login.html">Dashboard</a></ul>
-        <!-- mudar esse logOut também -->
-        <ul><a href="index.html">logOut</a></ul> 
+    <header>
+        <nav>
+            <h2>Clube</h2>
+            <ul><a href="login.html">Dashboard</a></ul>
+            <ul><a href="cadastro.html">Reuniões</a></ul>
+            <!-- mudar esse logOut também -->
+            <ul><a href="index.html">logOut</a></ul> 
+    
+        </nav>
+    </header>
+<main>
+    
+    <section class="unidade">
+        <h1>Unidades</h1>
+        <div class="card">
+            <div>
+                <h3>Adicionar novas unidades</h3>
+                <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
+                <button onclick="addunidades()">Adicionar Unidades</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Remover unidades</h3>
+                <input type="text" id="R_unidade" placeholder="Nome da Unidade">
+                <button onclick="delunidades()">Remover unidade</button>
+            </div>
+        </div>
+    </section>
 
-    </nav>
-    <div>
-        <!-- Adicionar a parte de presença -->
-        <h3>Adicionar novas unidades</h3>
-        <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
-        <button onclick="addunidades()">Adicionar Unidades</button>
-        <h3>Remover unidades</h3>
-        <input type="text" id="R_unidade" placeholder="Nome da Unidade">
-        <button onclick="delunidades()">Remover unidade</button>
-    </div>
-    <div>
-        <h3>Adicionar membro em unidade</h3>
-        <input type="text" id="iptMembro" placeholder="Nome completo do membro">
-        <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
-        <button onclick="addmembros()">Adicionar membros</button>
-        <h3>Remover membro de uma unidade</h3>
-        <input type="text" id="R_membro" placeholder="Nome do membro">
-        <input type="text" id="ipt_unidade_R_membro" placeholder="Nome da Unidade">
-        <button onclick="delmembros()">Remover membro</button>
-    </div>
-    <div>
-        <h3>Alterar pontos de membros</h3>
-        <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
-        <input type="text" id="ipt_membro" placeholder="Nome do membro">
-        <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
-        <button onclick="altpontos()">Adicionar Pontos</button>
-    </div>
+    <section class="membro">
+        <h1>Membros</h1>
+        <div class="card">
+            <div>
+                <h3>Adicionar membro em unidade</h3>
+                <input type="text" id="iptMembro" placeholder="Nome completo do membro">
+                <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
+                <button onclick="addmembros()">Adicionar membros</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Remover membro de uma unidade</h3>
+                <input type="text" id="R_membro" placeholder="Nome do membro">
+                <input type="text" id="ipt_unidade_R_membro" placeholder="Nome da Unidade">
+                <button onclick="delmembros()">Remover membro</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="gestao">
+        <h1>Gestão</h1>
+        <div class="card">
+            <div>
+                <h3>Alterar pontos de membros</h3>
+                <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
+                <input type="text" id="ipt_membro" placeholder="Nome do membro">
+                <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
+                <button onclick="altpontos()">Adicionar Pontos</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Presença</h3>
+                <input type="text" id="" placeholder="Data">
+                <input type="text" id="" placeholder="Membro">
+                <button>Adicionar presença</button>
+                <button>Remover presença</button>
+            </div>
+        </div>
+    </section>
+
+</main>
 </body>
 </html>
 <script>

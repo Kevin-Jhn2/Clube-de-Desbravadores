@@ -6,11 +6,14 @@ main{
     justify-content: space-around;
     flex-direction: column;
     padding: 10px;
-    flex-grow: 1;
+    flex: 1;
+    margin-left: 110px;
+    padding: 30px;
     
 }
 body{
-    background-image:linear-gradient(#002855, #003366) ;
+    background-color: #00152e;
+    /* background-image:linear-gradient(#002855, #003366) ; */
     height: 100vh;
     width: 100vw;
     margin: 0;
@@ -19,14 +22,36 @@ body{
     flex-direction: column;
     overflow: hidden;
 }
-nav{
+header{
     display: flex;
+    flex-direction: column;
     background-image:linear-gradient(rgb(240, 202, 52), rgba(250, 183, 26, 0.9));
-    border-bottom: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
     justify-content: space-evenly;
-    position: relative;
-    top:0;
-    width: 100%;
+    align-items: flex-start;
+    position: fixed;
+    width: 110px;
+    height: 100vh;
+}
+nav ul{
+    padding: 15px;
+}
+nav h2{
+    margin-bottom: 30px;
+    text-align: center;
+}
+nav a{
+    color: #161616;
+    text-decoration: none;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    transition: 0.3s;
+}
+nav a:hover{
+    background-color: #2d3748;
+    padding-left: 25px;
+    color: #cbd5e0;
 }
 .titulo{
     color: #ffffff;
@@ -34,11 +59,16 @@ nav{
     margin: 0;
 }
 .bloco{
-    color:#333333;
-    background-color: #F9F9F9;
+    /* color:#333333; */
+    color: rgb(231, 231, 231);
+    /* background-color: #00152e; */
+    background-image:linear-gradient(#002855, #003366) ;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    height: 20vh;
-    width: 30vw;
+    height: 15vh;
+    border-style: solid;
+    border-color: white;
+    border-width:thin;
+    width: 27vw;
     border-radius: 30px;
     
 }
@@ -52,20 +82,32 @@ section{
 section div div{
     display: flex;
     justify-content: center;
-    font-size: 25px;
+    font-size: 23px;
 }
 .grafico{
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    color:#333333;
+    color:#d3d3d3;
     height: 47vh;
-    width: 30vw;
-    background-color: #F9F9F9;
+    width: 27vw;
+    background-image:linear-gradient(#002855, #003366) ;
+    border-style: solid;
+    border-width:thin;
+    border-color: white;
+    /* background-color: #00152e; */
+    /* background-color: #F9F9F9; */
 }
 .lista{
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    color:#333333;
+    color:#d3d3d3;
+    border-width:thin;
+    border-style:solid;
+    border-color: white;
     height: 47vh;
     width: 30vw;
     max-height: 50vh;
-    background-color: white;
+    background-image:linear-gradient(#002855, #003366) ;
+    /* background-color: #00152e; */
+}
+.spacer{
+    flex: 1;
 }
