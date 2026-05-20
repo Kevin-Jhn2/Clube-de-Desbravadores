@@ -8,28 +8,36 @@
     <title>Cadastro</title>
     <script src="./js/sessao.js"></script>
 </head>
-<body>
+<body onload="listar()">
     <nav>
         <ul><a href="index.html">Home</a></ul> 
         <ul><a href="cadastro.html">Cadastro</a></ul>
         <ul><a href="login.html">Login</a></ul>
     </nav>
     <main class="section1">
-        <section>
-            <div class="cadastro">
-                <h1 class="divh1">Cadastro</h1>
-                <div class="inputs">
-                    <div><input type="text" id="nome_input" placeholder="Insira um nome de usuário"></div>
-                    <div><input type="text" id="email_input" placeholder="Insira seu email"></div>
-                    <div><input type="text" id="senha_input" placeholder="Insira sua senha"></div>
-                    <div><input type="text" id="confirmacao_senha_input" placeholder="Confirme sua senha"></div>
-                    <div><input type="text" id="clube_input" placeholder="Insira o nome do Clube"></div>
-                    <div><button onclick="cadastrar()">Cadastrar</button></div>
-                      <!-- Adicionar a parte de ver Presença de membro -->
-                </div>
-                
+      
+      <section>
+        <div class="cadastro">
+          <h1 class="divh1">Cadastro</h1>
+          
+          <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+              <span id="mensagem_erro"></span>
             </div>
-        </section>
+          </div>
+
+          <div class="inputs">
+            <div><input type="text" id="nome_input" placeholder="Insira um nome de usuário"></div>
+            <div><input type="text" id="email_input" placeholder="Insira seu email"></div>
+            <div><input type="text" id="senha_input" placeholder="Insira sua senha"></div>
+            <div><input type="text" id="confirmacao_senha_input" placeholder="Confirme sua senha"></div>
+            <div><input type="text" id="clube_input" placeholder="Insira o nome do Clube"></div>
+            <div><button onclick="cadastrar()">Cadastrar</button></div>
+              <!-- Adicionar a parte de ver Presença de membro -->
+          </div>
+                
+        </div>
+      </section>
        
     </main>
 </body>
@@ -101,7 +109,7 @@
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 
 //   talvez trocar para clubes cadastrados
-//   let listaEmpresasCadastradas = [];
+  let listaClubesCadastrados = [];
 
   function cadastrar() {
     // aguardar();
@@ -135,20 +143,24 @@
       setInterval(sumirMensagem, 5000);
     }
 
+    // Fazer a verificação de senha
+
+
     // Verificando se o código de ativação é de alguma empresa cadastrada
     // Talvez usar para nomes de clube já cadastrados
 
-    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
-    //     console.log("Código de ativação válido.");
-    //     break;
-    //   } else {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-    //     finalizarAguardar();
-    //   }
-    // }
+    for (let i = 0; i < listaClubesCadastrados.length; i++) {
+      if (listaClubesCadastrados[i].nome == nomeClubeVar) {
+        // idEmpresaVincular = listaEmpresasCadastradas[i].id
+        // console.log("Código de ativação válido.");
+        console.log("O nome do clube já existe")
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para nome de clube duplicado)";
+        finalizarAguardar();
+        return false;
+         
+      }
+    }
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -197,26 +209,41 @@
 
 // Aqui essa função pode servir com relação aos nomes de Clube
 
-  //   function listar() {
-//     fetch("/empresas/listar", {
-//       method: "GET",
-//     })
-//       .then(function (resposta) {
-//         resposta.json().then((empresas) => {
-//           empresas.forEach((empresa) => {
-//             listaEmpresasCadastradas.push(empresa);
 
-//             console.log("listaEmpresasCadastradas")
-//             console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-//           });
-//         });
-//       })
-//       .catch(function (resposta) {
-//         console.log(`#ERRO: ${resposta}`);
-//       });
-//   }
 
+
+// ------------ Posso usar o listar para fazer todas as validações de nome, email e nome do Clube -------------------------
+// Dados salvos na memória do navegador
+    
+     function listar() {
+    fetch("/clube/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((clubes) => {
+            // para cada um dos itens do array clubes você chamará de clube
+          clubes.forEach((clube) => {
+            // E adicionará cada clube em listaClubesCadastrados
+            listaClubesCadastrados.push(clube);
+
+            console.log("listaClubesCadastrados")
+            console.log(listaClubesCadastrados[0].nome)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+  // o fetch com a URL /empresas cai no parâmetro do app.js que definiu o /empresas como
+  // uma requisição de empresasRouter para o endereço .src/routes/empresas. Logo ele vai para
+  // o endereço em questão e busca o /listar - caindo no router.get(/listar) do arquivo empresas.js
+  // e sendo direcionado para o empresaController.js para fazer a função listar. Na função listar,
+  // ele precisa ir para empresaModel para assim, finalmente, dar o select que liste todas as empresas cadastradas.
+  
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+
+
 </script>

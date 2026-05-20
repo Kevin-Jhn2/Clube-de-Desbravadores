@@ -15,12 +15,15 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
+// Aqui vão todos os JS de Routes, vou precisar trocar esses nomes ou adicionar outros
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
+var unidadesRouter = require("./src/routes/unidade");
 var empresasRouter = require("./src/routes/empresas");
+var clubeRouter = require("./src/routes/clubes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,12 +31,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+// Aqui já está usando, talvez, esses JS's
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
+app.user("/unidades", unidadesRouter);
 app.use("/empresas", empresasRouter);
+app.use("/clubes", clubesRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

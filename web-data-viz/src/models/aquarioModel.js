@@ -1,3 +1,5 @@
+// Possivelmente esse daqui virará clubeModel porque é uma busca conforme a foreing key
+
 var database = require("../database/config");
 
 function buscarAquariosPorEmpresa(empresaId) {
