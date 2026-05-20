@@ -1,3 +1,6 @@
+// Esse daqui é para a dashboard
+
+
 var alertas = [];
 
 function obterdados(idAquario) {

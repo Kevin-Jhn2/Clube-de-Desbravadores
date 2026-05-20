@@ -1,0 +1,71 @@
+main{
+    display: flex;
+}
+body, html{
+    margin: 0;
+    height: 100%;
+}
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    background-image: linear-gradient(rgb(243, 215, 101), rgba(240, 180, 52, 1));
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 3px solid #ffffff;
+    /* f0ca34 */
+    /* (rgb(66, 71, 250), rgb(74, 0, 192)) */
+}
+.section1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)) ,url('../assets/imgs/machado.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.cadastro{
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 450px;
+    border-radius: 80px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #2d3748;
+    background-color: #f0f2f5;
+    /* justify-content: center; */
+    /* align-items: center; */
+    
+}
+.divh1{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 90px;
+    font-size: 50px;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* justify-content: space-between; */
+    align-items: center;
+    /* align-self: center; */
+    margin-top:5px;
+}
+div div div{
+    margin: 6px;
+}
+input{
+    padding: 7px;
+    width: 200px;
+}
+button{
+    display: flex;
+    justify-self: center;
+    
+}
