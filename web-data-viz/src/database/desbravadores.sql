@@ -1,6 +1,6 @@
 create database Desbravadores;
 
--- drop database Desbravadores; -- Não esquecer de tirar
+drop database Desbravadores; -- Não esquecer de tirar
 
 use Desbravadores;
 select * from Cadastro;
@@ -9,11 +9,12 @@ create table Cadastro(
     id int primary key auto_increment,
     nome varchar(200),
     email varchar(200),
-    senha varchar(256)
+    senha varchar(256),
+    nomeClube varchar(200)
 );
 desc Cadastro;
 
--- drop table Clube;
+drop table Clube;
 create table Clube (
 	fkCadastro int,
     nome varchar(200),

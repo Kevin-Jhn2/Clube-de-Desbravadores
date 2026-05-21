@@ -69,3 +69,10 @@ button{
     justify-self: center;
     
 }
+.loading-div{
+    display: none;
+    justify-content: center;
+}
+.loading-div img{
+    width: 3.125rem;
+}

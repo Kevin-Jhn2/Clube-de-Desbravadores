@@ -1,9 +1,10 @@
 var aquarioModel = require("../models/aquarioModel");
+var unidadeModel = require("../models/unidadeModel")
 
-function buscarAquariosPorEmpresa(req, res) {
+function buscarUnidadesPorClube(req, res) {
   var idUsuario = req.params.idUsuario;
 
-  aquarioModel.buscarAquariosPorEmpresa(idUsuario).then((resultado) => {
+  unidadeModel.buscarUnidadesPorClube(idUsuario).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -11,24 +12,26 @@ function buscarAquariosPorEmpresa(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar as unidades: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
 
-
+// cadastrar unidades
 function cadastrar(req, res) {
-  var descricao = req.body.descricao;
+  var fkClube = req.body.fkclube;
   var idUsuario = req.body.idUsuario;
-
-  if (descricao == undefined) {
-    res.status(400).send("descricao está undefined!");
+  var nomeUnidade = req.body.unidade;
+  if (fkClube == undefined) {
+    res.status(400).send("fkClube está undefined!");
   } else if (idUsuario == undefined) {
     res.status(400).send("idUsuario está undefined!");
+  } else if (nomeUnidade = undefined) {
+    res.status(400).send("Nome Unidade está undefined!")
   } else {
 
 
-    aquarioModel.cadastrar(descricao, idUsuario)
+    unidadeModel.cadastrar(fkClube, idUsuario, nomeUnidade)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -44,6 +47,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarAquariosPorEmpresa,
+  buscarUnidadesPorClube,
   cadastrar
 }
