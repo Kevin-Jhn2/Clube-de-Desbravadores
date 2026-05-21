@@ -12,7 +12,7 @@ function autenticar(email, senha) {
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, senha, clube) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, clube);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -23,9 +23,9 @@ function cadastrar(nome, email, senha, clube) {
     
     var instrucaoSql = `
         INSERT INTO Cadastro (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}');
-        set @idUsuario = SELECT id FROM Cadastro where nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
-        INSERT INTO Clube (nome, fkCadastro) values ('${clube}', @idUsuario);
-    `;
+        `;
+        // set @idUsuario = SELECT id FROM Cadastro where nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
+        // INSERT INTO Clube (nome, fkCadastro) values ('${clube}', @idUsuario);
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

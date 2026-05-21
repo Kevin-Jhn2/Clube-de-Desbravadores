@@ -1,10 +1,10 @@
 create database Desbravadores;
 
-drop database Desbravadores; -- Não esquecer de tirar
+-- drop database Desbravadores; -- Não esquecer de tirar
 
 use Desbravadores;
-
-drop table Cadastro;
+select * from Cadastro;
+-- drop table Cadastro;
 create table Cadastro(
     id int primary key auto_increment,
     nome varchar(200),
@@ -13,7 +13,7 @@ create table Cadastro(
 );
 desc Cadastro;
 
-drop table Clube;
+-- drop table Clube;
 create table Clube (
 	fkCadastro int,
     nome varchar(200),

@@ -23,7 +23,7 @@ var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
 var unidadesRouter = require("./src/routes/unidade");
 var empresasRouter = require("./src/routes/empresas");
-var clubeRouter = require("./src/routes/clubes");
+var clubesRouter = require("./src/routes/clubes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,7 +37,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
-app.user("/unidades", unidadesRouter);
+app.use("/unidades", unidadesRouter);
 app.use("/empresas", empresasRouter);
 app.use("/clubes", clubesRouter);
 

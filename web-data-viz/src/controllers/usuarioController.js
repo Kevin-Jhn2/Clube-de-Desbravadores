@@ -87,8 +87,8 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
+    // } else if (fkEmpresa == undefined) {
+    //     res.status(400).send("Sua empresa a vincular está undefined!");
     } else if (clube == undefined) {
         res.status(400).send("Seu nome de clube está undefined!");
     } else {
