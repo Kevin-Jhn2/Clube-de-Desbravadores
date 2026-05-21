@@ -2,7 +2,6 @@ var usuarioModel = require("../models/usuarioModel");
 // Vou precisar mudar esse aquarioModel ou adicionar o JS próprio
 var aquarioModel = require("../models/aquarioModel");
 var unidadeModel = require("../models/unidadeModel");
-var clubeModel ;
 
 // -------------------------- Depois verificar tudo sobre autenticar ---------------------------------------
 
@@ -11,6 +10,7 @@ function autenticar(req, res) {
     var senha = req.body.senhaServer;
     var usuario = req.body.usuarioServer;
 
+    
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
@@ -41,7 +41,7 @@ function autenticar(req, res) {
 // Mudar inclusive aqui, o aquarioModel não é necessário, será substituido possivelmente por clubeModel. Assim, tira empresaId
 
                         // aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                        unidadeModel.buscarUnidadesPorClube(resultadoAutenticar[0].fkCadastro)
+                        unidadeModel.buscarUnidadesPorClube(resultadoAutenticar[0].id)
                             .then((resultadoUnidades) => {
                             // .then((resultadoAquarios) => {
                                 if (resultadoUnidades.length > 0) {

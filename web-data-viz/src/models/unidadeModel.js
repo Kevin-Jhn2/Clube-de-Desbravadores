@@ -2,18 +2,18 @@
 
 var database = require("../database/config");
 
-function buscarUnidadesPorClube(fkClube) {
+function buscarUnidadesPorClube(id) {
 
-  var instrucaoSql = `SELECT * FROM Unidade u WHERE fkClube = ${fkClube}`;
+  var instrucaoSql = `SELECT * FROM Unidade u WHERE fkCadastro = ${id}`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 // Cadastrar unidades
-function cadastrar(fkClube, nomeUnidade) {
+function cadastrar(fkCadastro, nomeUnidade) {
   
-  var instrucaoSql = `INSERT INTO Unidade (id, nome, fkClube) VALUES (default, ${nomeUnidade}, ${fkClube})`;
+  var instrucaoSql = `INSERT INTO Unidade (id, nome, fkCadastro) VALUES (default, ${nomeUnidade}, ${fkCadastro})`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

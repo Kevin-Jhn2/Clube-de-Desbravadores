@@ -22,7 +22,7 @@ function cadastrar(nome, email, senha, clube) {
     // Verificar se funciona no npm start depois
     
     var instrucaoSql = `
-        INSERT INTO Cadastro (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}');
+        INSERT INTO Cadastro (nome, email, senha, nomeClube) VALUES ('${nome}', '${email}', '${senha}', '${clube}');
         `;
         // Esse daqui vai para a criação de unidades JS
         // set @idUsuario = SELECT id FROM Cadastro where nome = '${nome}' AND email = '${email}' AND senha = '${senha}';

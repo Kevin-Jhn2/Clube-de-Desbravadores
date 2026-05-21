@@ -1,6 +1,6 @@
 create database Desbravadores;
 
-drop database Desbravadores; -- Não esquecer de tirar
+-- drop database Desbravadores; -- Não esquecer de tirar
 
 use Desbravadores;
 select * from Cadastro;
@@ -13,23 +13,14 @@ create table Cadastro(
     nomeClube varchar(200)
 );
 desc Cadastro;
-
-drop table Clube;
-create table Clube (
-	fkCadastro int,
-    nome varchar(200),
-    constraint fk_cadastro foreign key (fkCadastro)
-    references Cadastro (id),
-    constraint pk primary key (fkCadastro)
-);
-desc Clube;
-
+insert into Unidade values 
+(null, 'unidade a', 1);
 create table Unidade (
 	id int primary key auto_increment,
     nome varchar(200),
-    fkClube int,
-    constraint fk_clube foreign key (fkClube)
-    references Clube (fkCadastro)
+    fkCadastro int,
+    constraint fk_cadastro foreign key (fkCadastro)
+    references Cadastro (id)
 );
 desc Unidade;
 

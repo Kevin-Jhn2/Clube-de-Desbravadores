@@ -3,8 +3,8 @@ var unidadeModel = require("../models/unidadeModel")
 
 function buscarUnidadesPorClube(req, res) {
   var idUsuario = req.params.idUsuario;
-
-  unidadeModel.buscarUnidadesPorClube(idUsuario).then((resultado) => {
+  var fkCadastro = req.params.fkcadastro;
+  unidadeModel.buscarUnidadesPorClube(fkCadastro).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -19,11 +19,11 @@ function buscarUnidadesPorClube(req, res) {
 
 // cadastrar unidades
 function cadastrar(req, res) {
-  var fkClube = req.body.fkclube;
+  var fkCadastro = req.body.fkcadastro;
   var idUsuario = req.body.idUsuario;
   var nomeUnidade = req.body.unidade;
-  if (fkClube == undefined) {
-    res.status(400).send("fkClube está undefined!");
+  if (fkCadastro == undefined) {
+    res.status(400).send("fkCadastro está undefined!");
   } else if (idUsuario == undefined) {
     res.status(400).send("idUsuario está undefined!");
   } else if (nomeUnidade = undefined) {
@@ -31,7 +31,7 @@ function cadastrar(req, res) {
   } else {
 
 
-    unidadeModel.cadastrar(fkClube, idUsuario, nomeUnidade)
+    unidadeModel.cadastrar(fkCadastro, idUsuario, nomeUnidade)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
