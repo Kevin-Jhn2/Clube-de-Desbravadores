@@ -4,7 +4,7 @@ var database = require("../database/config");
 
 function buscarUnidadesPorClube(id) {
 
-  var instrucaoSql = `SELECT * FROM Unidade u WHERE fkCadastro = ${id}`;
+  var instrucaoSql = `SELECT * FROM Unidade u WHERE fkCadastro = ${id};`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

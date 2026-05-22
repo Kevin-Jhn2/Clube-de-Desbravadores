@@ -3,7 +3,7 @@ create database Desbravadores;
 -- drop database Desbravadores; -- Não esquecer de tirar
 
 use Desbravadores;
-select * from Cadastro;
+
 -- drop table Cadastro;
 create table Cadastro(
     id int primary key auto_increment,
@@ -12,9 +12,13 @@ create table Cadastro(
     senha varchar(256),
     nomeClube varchar(200)
 );
-desc Cadastro;
-insert into Unidade values 
-(null, 'unidade a', 1);
+-- desc Unidade;
+-- select id, nome, email from Cadastro where email = 'a' AND nome = 'a' AND senha = 'a';
+-- SELECT * FROM Unidade join Cadastro on Unidade.fkCadastro = Cadastro.id;
+-- select * from Cadastro;
+-- desc Cadastro;
+-- insert into Unidade values 
+-- (null, 'unidade a', 1);
 create table Unidade (
 	id int primary key auto_increment,
     nome varchar(200),

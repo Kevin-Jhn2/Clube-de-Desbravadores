@@ -23,10 +23,10 @@ function cadastrar(nome, email, senha, clube) {
     
     var instrucaoSql = `
         INSERT INTO Cadastro (nome, email, senha, nomeClube) VALUES ('${nome}', '${email}', '${senha}', '${clube}');
+        set @idUsuario = (SELECT id FROM Cadastro where nome = '${nome}' AND email = '${email}' AND senha = '${senha}');
+        INSERT INTO Unidade (fkCadastro) values (@idUsuario);
         `;
         // Esse daqui vai para a criação de unidades JS
-        // set @idUsuario = SELECT id FROM Cadastro where nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
-        // INSERT INTO Clube (nome, fkCadastro) values ('${clube}', @idUsuario);
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
