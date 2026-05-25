@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon"> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desbravadores | Reunião</title>
+
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="stylesheet" href="../css/styleReuniao.css">
+
+    <script src="../js/sessao.js"></script>
+    <!-- Ele chama a rota medida -->
+    <!-- <script src="../js/alerta.js"></script> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <!-- <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet"> -->
+</head>
+
+<body onload="validarSessao()
+// , exibirUnidades
+// , atualizacaoPeriodica
+ ">
+
+    <!-- <div class="janela"> -->
+        <header>
+            
+            <nav>
+                
+                <h2>Clube</h2>
+                <div class="hello">
+                    <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                </div>
+                    <ul>
+                        <!-- <div class="btn-nav"> -->
+                        <a>
+                            Reuniões
+                        </a>
+                        <!-- </div> -->
+                    </ul>
+                    <ul>
+                        <!-- <div class="btn-nav-white"> -->
+                            <a href="./dashboard copy.html">
+                                Dashboard
+                            </a>
+                        </div>
+                    </ul>
+                    <ul>
+                        <a onclick="limparSessao()">
+                            Sair
+                        </a>
+                        <!-- <div class="btn-logout" onclick="limparSessao()"> -->
+                        <!-- </div> -->
+                    </ul>
+    
+            </nav>
+
+        </header>
+        
+        <main>
+
+            
+        </div>
+        <!-- <div class="dash"> -->
+            <div id="alerta">
+            </div>
+            <!-- <div class="area-parametros-alerta">
+                <p class="titulo-legenda">
+                    Legenda - Parâmetros para Alertas
+                </p>
+                <div class="parametros-alerta">
+                    <div class="item-regua perigo-frio">
+                        <p>Perigo</p>
+                        <p>&lt;=5°C</p>
+                    </div>
+                    <div class="item-regua alerta-frio">
+                        <p>Alerta</p>
+                        <p>&lt;=10°C</p>
+                    </div>
+                    <div class="item-regua ideal">
+                        <p>Ideal</p>
+                        <p>20°C</p>
+                    </div>
+                    <div class="item-regua alerta-quente">
+                        <p>Alerta</p>
+                        <p>&gt;=22°C</p>
+                    </div>
+                    <div class="item-regua perigo-quente">
+                        <p>Perigo</p>
+                        <p>&gt;=23°C</p>
+                    </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+
+        
+    <section class="unidade">
+        <h1>Unidades</h1>
+        <div class="card">
+            <div>
+                <h3>Adicionar novas unidades</h3>
+                <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
+                <button onclick="addunidades()">Adicionar Unidades</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Remover unidades</h3>
+                <input type="text" id="R_unidade" placeholder="Nome da Unidade">
+                <button onclick="delunidades()">Remover unidade</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="membro">
+        <h1>Membros</h1>
+        <div class="card">
+            <div>
+                <h3>Adicionar membro em unidade</h3>
+                <input type="text" id="iptMembro" placeholder="Nome completo do membro">
+                <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
+                <button onclick="addmembros()">Adicionar membros</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Remover membro de uma unidade</h3>
+                <input type="text" id="R_membro" placeholder="Nome do membro">
+                <input type="text" id="ipt_unidade_R_membro" placeholder="Nome da Unidade">
+                <button onclick="delmembros()">Remover membro</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="gestao">
+        <h1>Gestão</h1>
+        <div class="card">
+            <div>
+                <h3>Alterar pontos de membros</h3>
+                <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
+                <input type="text" id="ipt_membro" placeholder="Nome do membro">
+                <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
+                <button onclick="altpontos()">Adicionar Pontos</button>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <h3>Presença</h3>
+                <input type="text" id="" placeholder="Data">
+                <input type="text" id="" placeholder="Membro">
+                <button>Adicionar presença</button>
+                <button>Remover presença</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- <div class="cards" id="cardUnidades"> -->
+        
+        <!-- </div> -->
+        
+    <!-- </div> -->
+</main>
+
+</body>
+
+<script>
+
+    // function exibirUnidades() {
+    //     JSON.parse(sessionStorage.UNIDADES).forEach(item => {
+    //         document.getElementById("cardUnidades").innerHTML += `
+    //                 <div class="card-aquario">
+    //                     <div class="title-aquario">
+    //                         <h1>${item.nome}</h1>
+    //                     </div>
+    //                     <div class="desc-aquario">
+    //                     <div class="temperatura">
+    //                         <p id="temp_aquario_${item.id}">-°C</p>
+    //                     </div>
+    //                     <div class="cor-alerta" id="card_${item.id}"></div>
+    //                 </div>
+    //                 </div>
+    //                 `
+    //     });
+    // }
+
+</script>
+
+</html>

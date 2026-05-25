@@ -54,4 +54,4 @@ create table Presenca (
     references Membro (id)
 );
 desc Presenca;
-
+select * from Unidade;
