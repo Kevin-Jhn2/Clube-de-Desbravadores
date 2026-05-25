@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="./../css/estilo.css" />
     <link rel="stylesheet" href="../css/styleDash.css">
     <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
+    <!-- <script src="./../js/alerta.js"></script>
+      -->
 
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
     <!-- <link
@@ -31,51 +32,94 @@
 
 <body>
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
-
+    <header>
+        
+        <nav>
+            
+            <h2>Clube</h2>
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
+                <ul>
+                    <!-- <div class="btn-nav"> -->
+                    <a href="./reuniao copy.html">
+                        Reuniões
+                    </a>
+                    <!-- </div> -->
+                </ul>
+                <ul>
+                    <!-- <div class="btn-nav-white"> -->
+                        <a>
+                            Dashboard
+                        </a>
+                    <!-- </div> -->
+                </ul>
+                <ul>
+                    <a onclick="limparSessao()">
+                        Sair
+                    </a>
+                    <!-- <div class="btn-logout" onclick="limparSessao()"> -->
+                    <!-- </div> -->
+                </ul>
 
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
-                </a>
+        </nav>
+
+    </header>            
+    <main>
+        <section class="titulo">
+            <div>Dashboard Desbravadores</div>
+        </section>
+
+        <section class="section1">
+            <div class="grafico">
+                <div>
+                    Frequência média das reuniões
+                </div>
             </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
+            <div class="grafico">
+                <div>
+                    Gráfico de Desempenho por Unidade
+                </div>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
+            <div class="lista">
+                <div>
+                    Membros com menor frequência
+                </div>
             </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+        </section>
+        
+        <section>
+            <div class="bloco">
+                <div>
+                    Unidade com maior pontuação
+                </div>
             </div>
-
-        </div>
-
+            <div class="bloco">
+                <div>
+                    Desbravador com maior pontuação
+                </div>
+            </div>
+            <div class="bloco">
+                <div>
+                    Total de membros
+                </div>
+            </div>
+        </section>
+<!--         
         <div class="dash">
             <div id="alerta">
             </div>
+            
+        <div class="btns-dash" id="btnUnidade"> -->
+            <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+        <!-- </div> -->
 
-            <div class="btns-dash" id="btnUnidade">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
-        </div>
+        <!-- <div id="graficos"></div> -->
     </div>
 
-
+</main>
+    
+    
 </body>
 
 </html>

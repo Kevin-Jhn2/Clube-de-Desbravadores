@@ -21,7 +21,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
-var unidadesRouter = require("./src/routes/unidade");
+var unidadesRouter = require("./src/routes/unidades");
 var empresasRouter = require("./src/routes/empresas");
 var clubesRouter = require("./src/routes/clubes");
 

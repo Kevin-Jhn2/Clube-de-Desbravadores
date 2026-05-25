@@ -55,3 +55,4 @@ create table Presenca (
 );
 desc Presenca;
 select * from Unidade;
+select * from Membro;

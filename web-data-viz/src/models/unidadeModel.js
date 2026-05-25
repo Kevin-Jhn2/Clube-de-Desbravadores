@@ -11,16 +11,58 @@ function buscarUnidadesPorClube(id) {
 }
 
 // Cadastrar unidades
-function cadastrar(fkCadastro, nomeUnidade) {
-  
-  var instrucaoSql = `INSERT INTO Unidade (id, nome, fkCadastro) VALUES (default, ${nomeUnidade}, ${fkCadastro})`;
+function cadastrar(idUsuario, nomeUnidade) {
+  console.log("caiu no cadastrar")
+
+  var instrucaoSql = `
+  DELETE FROM Unidade where nome is null;
+  INSERT INTO Unidade (id, nome, fkCadastro) VALUES (default, '${nomeUnidade}', ${idUsuario});
+  `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
+function deletar(idUsuario, nomeUnidade){
+  console.log("caiu no deletar");
+  var instrucaoSql = `
+  DELETE FROM Unidade where nome = '${nomeUnidade}' AND fkCadastro = ${idUsuario};
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function addmembro (idUsuario, nomeUnidade, nomeMembro){
+  console.log("Caiu no addmembro");
+
+  var instrucaoSql = `
+  set @idUnidadeMembro = (SELECT id from Unidade where fkCadastro = ${idUsuario} AND nome = '${nomeUnidade}');
+  INSERT INTO Membro (id, nome, fkUnidade) values (default, '${nomeMembro}', @idUnidadeMembro);
+`;
+
+console.log("Executando a instrução SQL; \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
+function delmembro (idUsuario, nomeUnidade, nomeMembro){
+  console.log("Caiu no delmembro");
+
+  var instrucaoSql = `
+  set @idUnidadeMembro = (SELECT id from Unidade where fkCadastro = ${idUsuario} AND nome = '${nomeUnidade}');
+  set @idDelMembro = (SELECT id FROM Membro where fkUnidade = @idUnidadeMembro AND nome = '${nomeMembro}');  
+  DELETE FROM Membro where id = @idDelMembro;
+`;
+
+console.log("Executando a instrução SQL; \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   buscarUnidadesPorClube,
-  cadastrar
+  cadastrar,
+  deletar,
+  addmembro,
+  delmembro
 }

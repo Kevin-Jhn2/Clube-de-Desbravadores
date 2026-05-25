@@ -63,6 +63,11 @@
         </header>
         
         <main>
+          <!-- <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+              <span id="mensagem_erro"></span>
+            </div>
+          </div> -->
 
             
         </div>
@@ -157,7 +162,13 @@
             </div>
         </div>
     </section>
-    
+<!--     
+    <div id="div_aguardar" class="loading-div">
+        <img src="./assets/circle-loading.gif" id="loading-gif" />
+    </div> -->
+
+    <!-- <div id="div_erros_login"></div> -->
+
     <!-- <div class="cards" id="cardUnidades"> -->
         
         <!-- </div> -->
@@ -168,6 +179,74 @@
 </body>
 
 <script>
+        function addunidades(){
+        var nomeUnidadeVar = iptUnidade.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        
+        fetch("/unidades/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeUnidadeServer: nomeUnidadeVar,
+                idUsuarioServer: idUsuarioVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar()
+        })
+
+
+
+    //     if(nomeUnidadeVar == ""){
+    //         cardErro.style.display = "block";
+    //   mensagem_erro.innerHTML =
+    //     "(Mensagem de erro para todos os campos em branco)";
+
+    //   finalizarAguardar();
+    //   return false;
+    // } else {
+    //   setInterval(sumirMensagem, 5000);
+    // }
+        // // JSON unidade, contém nome, membros (array) e pontuação
+        // let unidade = {
+        //     nome: nomeUnidade,
+        //     membros: [],
+        //     pontos: 0
+        // }
+        // Adicionar unidade, verificando se há replica e se os campos foram preenchidos
+    //     if(nomeUnidade == ""){
+    //         console.log("Campo não preenchido")
+    //     }else{
+    //         // Réplicas de Unidade, talvez eu devesse colocar somente se o nome for o mesmo
+    //         let duplicata = false;
+    //         for(let i = 0; i <clube.length; i++){
+    //             let elementoUnidade = clube[i];
+    //             if(elementoUnidade.nome.toLowerCase() == nomeUnidade.toLowerCase()){
+    //                 duplicata = true;
+    //                 break;
+    //             };
+    //         };
+    //         console.log(duplicata)
+    //         if(duplicata == false){
+    //             clube.push(unidade);
+    //             console.log(`Unidade ${unidade.nome} adicionada: `, JSON.stringify(clube, null, 2));
+    //         }else{
+
+    //             // Deixa mais bonito  
+    //             // console.table(clube)
+    //             console.log(`Unidade ${nomeUnidade} já existe: `, JSON.stringify(clube, null, 2));
+    //             // console.log(JSON.stringify(clube, null, 2)); Deixa já aberto
+    //             // console.log( clube); aparece como clickável
+    //         };
+    //         iptUnidade.value = ""
+    //     };
+    }
 
     // function exibirUnidades() {
     //     JSON.parse(sessionStorage.UNIDADES).forEach(item => {
@@ -186,6 +265,85 @@
     //                 `
     //     });
     // }
+
+    function delunidades(){
+        var nomeUnidadeVar = R_unidade.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        
+        fetch("/unidades/deletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeUnidadeServer: nomeUnidadeVar,
+                idUsuarioServer: idUsuarioVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar()
+        })
+
+    }
+
+    function addmembros(){
+        var nomeUnidadeVar = ipt_unidade.value;
+        var nomeMembroVar = iptMembro.value
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        
+        fetch("/unidades/addmembro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeUnidadeServer: nomeUnidadeVar,
+                nomeMembroServer: nomeMembroVar,
+                idUsuarioServer: idUsuarioVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar()
+        })
+
+
+    }
+
+
+    function delmembros(){
+        var nomeUnidadeVar = ipt_unidade_R_membro.value;
+        var nomeMembroVar = R_membro.value
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        
+        fetch("/unidades/delmembro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeUnidadeServer: nomeUnidadeVar,
+                nomeMembroServer: nomeMembroVar,
+                idUsuarioServer: idUsuarioVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar()
+        })
+
+
+    }
 
 </script>
 
