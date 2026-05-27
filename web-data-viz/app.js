@@ -24,7 +24,9 @@ var aquariosRouter = require("./src/routes/aquarios");
 var unidadesRouter = require("./src/routes/unidades");
 var empresasRouter = require("./src/routes/empresas");
 var clubesRouter = require("./src/routes/clubes");
-
+var reunioesRouter = require("./src/routes/reunioes");
+var membrosRouter = require("./src/routes/membros");
+var presencasRouter = require("./src/routes/presencas")
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -40,6 +42,9 @@ app.use("/aquarios", aquariosRouter);
 app.use("/unidades", unidadesRouter);
 app.use("/empresas", empresasRouter);
 app.use("/clubes", clubesRouter);
+app.use("/membros", membrosRouter);
+app.use("/reunioes", reunioesRouter);
+app.use("/presencas", presencasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

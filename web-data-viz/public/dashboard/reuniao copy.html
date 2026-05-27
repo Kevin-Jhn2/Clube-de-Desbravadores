@@ -102,20 +102,15 @@
         <!-- </div> -->
     <!-- </div> -->
 
+    <!-- --------------------------- Aqui começam as seções------------------ -->
         
     <section class="unidade">
         <h1>Unidades</h1>
         <div class="card">
             <div>
-                <h3>Adicionar novas unidades</h3>
+                <h3>Alterar Unidades</h3>
                 <input type="text" id="iptUnidade" placeholder="Nome da Unidade">
                 <button onclick="addunidades()">Adicionar Unidades</button>
-            </div>
-        </div>
-        <div class="card">
-            <div>
-                <h3>Remover unidades</h3>
-                <input type="text" id="R_unidade" placeholder="Nome da Unidade">
                 <button onclick="delunidades()">Remover unidade</button>
             </div>
         </div>
@@ -129,14 +124,17 @@
                 <input type="text" id="iptMembro" placeholder="Nome completo do membro">
                 <input type="text" id="ipt_unidade" placeholder="Nome da Unidade">
                 <button onclick="addmembros()">Adicionar membros</button>
+                <button onclick="delmembros()">Remover membro</button>
             </div>
         </div>
-        <div class="card">
+                <div class="card">
             <div>
-                <h3>Remover membro de uma unidade</h3>
-                <input type="text" id="R_membro" placeholder="Nome do membro">
-                <input type="text" id="ipt_unidade_R_membro" placeholder="Nome da Unidade">
-                <button onclick="delmembros()">Remover membro</button>
+                <h3>Alterar pontos de um membro</h3>
+                <input type="text" id="ipt_ponto" placeholder="Quantidade de pontos">
+                <input type="text" id="ipt_membro" placeholder="Nome do membro">
+                <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
+                <button onclick="addpontos()">Adicionar Pontos</button>
+                <button onclick="delpontos()">Remover Pontos</button>
             </div>
         </div>
     </section>
@@ -145,21 +143,34 @@
         <h1>Gestão</h1>
         <div class="card">
             <div>
-                <h3>Alterar pontos de membros</h3>
-                <input type="text" id="iptPonto" placeholder="Quantidade de pontos">
-                <input type="text" id="ipt_membro" placeholder="Nome do membro">
-                <input type="text" name="" id="ipt__unidade" placeholder="Nome da Unidade">
-                <button onclick="altpontos()">Adicionar Pontos</button>
-            </div>
-        </div>
-        <div class="card">
-            <div>
                 <h3>Presença</h3>
                 <input type="text" id="" placeholder="Data">
                 <input type="text" id="" placeholder="Membro">
                 <button>Adicionar presença</button>
                 <button>Remover presença</button>
             </div>
+        </div>
+    </section>
+
+    <section class="reuniao">
+        <h1>Reunião</h1>
+        <div class="card">
+            <div>
+                <h3>Alterar reuniões</h3>
+                <input type="date" id="iptData" placeholder="Dia da reunião">
+                <input type="text" id="iptDescricao" placeholder="Tipo da reunião">
+                <button onclick="addreuniao()">Adicionar Reunião</button>
+                <button onclick="delreuniao()">Remover Reunião</button>
+            </div>
+            <div>
+                <h3>Alterar presença de membro na reunião</h3>
+                <input type="text" id="ipt_presenca" placeholder="Nome do membro">
+                <input type="text" id="ipt_unidade_reuniao" placeholder="Nome da Unidade">
+                <input type="text" id="ipt_situacao" placeholder="Presente/Ausente/Justificado">
+                <button onclick="addsituacao()">Adicionar situação</button>
+                <button onclick="delsituacao()">Remover situação</button>
+            </div>
+
         </div>
     </section>
 <!--     
@@ -267,7 +278,7 @@
     // }
 
     function delunidades(){
-        var nomeUnidadeVar = R_unidade.value;
+        var nomeUnidadeVar = iptUnidade.value;
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         
         fetch("/unidades/deletar", {
@@ -319,8 +330,8 @@
 
 
     function delmembros(){
-        var nomeUnidadeVar = ipt_unidade_R_membro.value;
-        var nomeMembroVar = R_membro.value
+        var nomeUnidadeVar = ipt_unidade.value;
+        var nomeMembroVar = iptMembro.value
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         
         fetch("/unidades/delmembro", {
@@ -341,8 +352,172 @@
             console.log(`#ERRO: ${resposta}`);
             finalizarAguardar()
         })
+    }
 
+    function addreuniao(){
+        var dataVar = iptData.value;
+        var descricaoVar = iptDescricao.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
 
+        fetch("/reunioes/addreuniao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                dataServer: dataVar,
+                descricaoServer: descricaoVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+            finalizarAguardar();
+        })
+    }
+
+    function delreuniao(){
+        var dataVar = iptData.value;
+        var descricaoVar = iptDescricao.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        fetch("/reunioes/delreuniao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                dataServer: dataVar,
+                descricaoServer: descricaoVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+            finalizarAguardar();
+        })
+
+    }
+
+    function addsituacao(){
+        var dataVar = iptData.value;
+        var descricaoVar = iptDescricao.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        var nomeMembroVar = ipt_presenca.value;
+        var nomeUnidadeVar = ipt_unidade_reuniao.value;
+        var situacaoVar = ipt_situacao.value;
+
+        fetch("/presencas/addsituacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                dataServer: dataVar,
+                descricaoServer: descricaoVar,
+                nomeMembroServer: nomeMembroVar,
+                nomeUnidadeServer: nomeUnidadeVar,
+                situacaoServer: situacaoVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function(resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        })
+    }
+
+    function delsituacao(){
+        var dataVar = iptData.value;
+        var descricaoVar = iptDescricao.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        var nomeMembroVar = ipt_presenca.value;
+        var nomeUnidadeVar = ipt_unidade_reuniao.value;
+        var situacaoVar = ipt_situacao.value;
+
+        fetch("/presencas/delsituacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                dataServer: dataVar,
+                descricaoServer: descricaoVar,
+                nomeMembroServer: nomeMembroVar,
+                nomeUnidadeServer: nomeUnidadeVar,
+                situacaoServer: situacaoVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function(resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        })
+    }
+
+    function addpontos(){
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        var pontoVar = ipt_ponto.value;
+        var membroVar = ipt_membro.value;
+        var unidadeVar = ipt__unidade.value;
+
+        fetch("/membros/addpontos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                pontoServer: pontoVar,
+                membroServer: membroVar,
+                unidadeServer: unidadeVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        })
+    }
+    function delpontos(){
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+        var pontoVar = ipt_ponto.value;
+        var membroVar = ipt_membro.value;
+        var unidadeVar = ipt__unidade.value;
+
+        fetch("/membros/delpontos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar,
+                pontoServer: pontoVar,
+                membroServer: membroVar,
+                unidadeServer: unidadeVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        })
     }
 
 </script>

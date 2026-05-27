@@ -98,6 +98,17 @@ header{
     /* height: 30%; */
 /* align-self: center; */
 }
+
+.reuniao{
+    background-color: #f4f4f4;
+    width:30%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    /* height: 30%; */
+/* align-self: center; */
+}
+
 nav ul{
     padding: 15px;
 }
