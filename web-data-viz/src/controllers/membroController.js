@@ -185,7 +185,50 @@ function delpontos(req, res){
     }
 }
 
+function buscarUltimasMedidas(req, res) {
+
+    const limite_linhas = 7;
+
+    var idUnidade = req.params.idUnidade;
+
+    console.log(`Recuperando os ultimos ${limite_linhas} pontos`);
+
+    membroModel.buscarUltimasMedidas(idUnidade, limite_linhas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+function buscarMedidasEmTempoReal(req, res) {
+
+    var idUnidade = req.params.idUnidade;
+
+    console.log(`Recuperando pontos de membro em tempo real`);
+
+    membroModel.buscarMedidasEmTempoReal(idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     addpontos,
-    delpontos
+    delpontos,
+    buscarUltimasMedidas,
+    buscarMedidasEmTempoReal
 }

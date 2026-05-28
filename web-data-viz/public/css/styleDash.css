@@ -112,3 +112,9 @@ section div div{
 .spacer{
     flex: 1;
 }
+
+.teste{
+    height: 50%;
+    width: 50%;
+    background-color: #cbd5e0;
+}

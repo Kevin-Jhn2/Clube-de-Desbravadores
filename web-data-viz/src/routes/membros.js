@@ -12,6 +12,16 @@ router.post("/delpontos", function (req, res) {
     membroController.delpontos(req, res);
 })
 
+// Gráfico de desempenho
+router.get("/ultimas/:idUnidade", function (req, res) {
+    membroController.buscarUltimasMedidas(req, res);
+});
+
+router.get("/tempo-real/:idUnidade", function (req, res) {
+    membroController.buscarMedidasEmTempoReal(req, res);
+});
+
+
 
 
 

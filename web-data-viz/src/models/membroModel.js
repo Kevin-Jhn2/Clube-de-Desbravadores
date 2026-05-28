@@ -110,7 +110,37 @@ function delpontos(idUsuario, pontos, membro, unidade){
     return database.executar(instrucaoSql);
 
 }
+
+function buscarUltimasMedidas(idUnidade, limite_linhas) {
+
+    var instrucaoSql = `SELECT 
+                    nome, pontos
+                    FROM Membro
+                    WHERE fkUnidade = ${idUnidade}
+                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasEmTempoReal(idUnidade) {
+
+    var instrucaoSql = `SELECT 
+                        nome,
+                        pontos,
+                        fkUnidade 
+                        FROM Membro WHERE fkUnidade = ${idUnidade} 
+                    ORDER BY id DESC LIMIT 1`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
 module.exports = {
     addpontos,
-    delpontos    
+    delpontos,
+    buscarUltimasMedidas,
+    buscarMedidasEmTempoReal    
 }
