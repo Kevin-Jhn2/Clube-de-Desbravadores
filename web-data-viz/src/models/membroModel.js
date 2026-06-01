@@ -93,7 +93,7 @@ function addpontos(idUsuario, pontos, membro, unidade){
     var instrucaoSql = `
     set @idUnidade = (SELECT id FROM Unidade where nome = '${unidade}' AND fkCadastro = ${idUsuario});
     set @pontos = (SELECT pontos FROM Membro where nome = '${membro}' AND fkUnidade = @idUnidade);
-    UPDATE Membro set pontos = (ifnull(@pontos, 0) + ${pontos}) where fkUnidade = 2 AND nome = '${membro}';
+    UPDATE Membro set pontos = (ifnull(@pontos, 0) + ${pontos}) where fkUnidade = @idUnidade AND nome = '${membro}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -117,8 +117,8 @@ function buscarUltimasMedidas(idUnidade, limite_linhas) {
                     nome, pontos
                     FROM Membro
                     WHERE fkUnidade = ${idUnidade}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
-
+                    ORDER BY id DESC -- LIMIT ${limite_linhas}`;
+                    
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

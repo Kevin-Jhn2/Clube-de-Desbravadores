@@ -57,10 +57,28 @@ create table Presenca (
 desc Presenca;
 select * from Unidade;
 select id from Unidade where fkCadastro = 1;
-select * from Membro;
--- select * from Cadastro;
+select * from Membro where fkUnidade = 12;
+select * from Cadastro;
 select * from Reuniao;
 select * from Presenca;
+delete from Membro where fkUnidade = 12;
+
+select count(*) as total_reunioes from Reuniao where fkCadastro =  11; -- sessionStorage
+-- create view relacao
+select * from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
+right join Reuniao r on r.fkCadastro = c.id; -- join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id;
+select * from Presenca p right join Reuniao r on p.fkReuniao = r.id left join Membro m on m.id = p.fkMembro;
+
+CREATE VIEW todas_relacaoes_vw.desbravadores as
+select * from Membro m 
+LEFT JOIN Presenca p on p.fkMembro = m.id 
+LEFT JOIN Reuniao r on r.id = p.fkReuniao
+JOIN Unidade u on m.fkUnidade = u.id 
+JOIN Cadastro c on u.fkCadastro = c.id
+; 
+select * from Membro;
+
+select * from Unidade where fkCadastro = 11;
 
 INSERT INTO Cadastro (nome, email, senha, nomeClube) VALUES
 ('Cláudio Souza', 'claudio@email.com', 'senha123_hash', 'Heróis do Amanhã'),

@@ -59,6 +59,13 @@ nav a:hover{
     font-size: 40px;
     margin: 0;
 }
+
+.titulo-grafico {
+    color: white;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 24px;
+}
 .bloco{
     /* color:#333333; */
     color: rgb(231, 231, 231);
@@ -88,12 +95,16 @@ section div div{
 .grafico{
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     color:#d3d3d3;
-    height: 47vh;
+    max-height: 65vh;
     width: 27vw;
     background-image:linear-gradient(#002855, #003366) ;
     border-style: solid;
     border-width:thin;
     border-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /* background-color: #00152e; */
     /* background-color: #F9F9F9; */
 }

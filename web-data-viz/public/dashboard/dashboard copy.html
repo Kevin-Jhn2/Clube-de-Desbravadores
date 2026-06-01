@@ -68,44 +68,6 @@
 
     </header>            
     <main>
-        
-        <div class="teste">
-
-
-            
-            <section class="section1">
-                <div class="grafico">
-                    <div class="dash">
-                        <div id="alerta"></div>
-                        <div class="btns-dash" id="btnUnidade">
-                            <div id="graficos"></div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-            
-        </div>
-
-        
-        <!-- <section class="section1">
-            <div class="grafico">
-                <div>Oi</div>
-                <div class="teste">
-                    <div class="dash">
-                        <div id="alerta"></div>
-                        <div class="btns-dash" id="btnUnidade">
-                            <div id="graficos"></div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </section> -->
-            
-
-
-
 
 
         <!-- <section class="titulo">
@@ -150,6 +112,49 @@
             </div>
         </section> -->
 
+<section class="section1">
+
+    <div class="grafico">
+    <div class="titulo-grafico">Desempenho por membro na Unidade</div>
+        <!-- <div class="teste"> -->
+            <div class="dash">
+                <div id="graficos"></div>
+                <!-- <div id="alerta"></div> -->
+            </div>
+            <div class="btns-dash" id="btnUnidade">
+        </div>
+    
+        </div>
+    </div>
+
+    <div class="grafico">
+        <div class="titulo-grafico">Gráfico de frequência total</div>
+        <div class="dash">
+            <div id="frequencia"></div>
+        </div>
+    </div>
+    <div class="lista">
+        <div class="titulo-grafico">
+            Membros com menor frequência
+        </div>
+        <div class="dash">
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </main>
     
@@ -170,7 +175,7 @@
     function exibirUnidadesPorUsuario() {
         var unidades = JSON.parse(sessionStorage.UNIDADES);
         unidades.forEach(item => {
-            document.getElementById("btnUnidade").innerHTML += `
+            document.getElementById("btnUnidade").innerHTML += `<br>
             <button class="btn-chart" onclick="exibirUnidade(${item.id})" id="btnUnidade${item.id}">${item.nome}</button>
             `
 
@@ -289,9 +294,9 @@
             datasets: [{
                 label: 'Pontuação',
                 data: [],
-                fill: false,
+                fill: true,
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                
             }
             // , {
             //     label: 'Temperatura',
@@ -328,8 +333,29 @@
             type: 'pie', // Gráfico de pizza
             data: dados,
             options: {
-                // responsive: true,
-                maintainAspectRatio: false
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 0.5,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundcolor: 'rgba(0, 21, 46, 0.9)',
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        padding: 12,
+                        cornerRadius: 8,
+                        borderColor: '#ffffff',
+                        borderWidth: 0.5
+                    }
+                }
             }
         };
 
@@ -356,7 +382,7 @@
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    obterdados(idUnidade); // um loop?
+                    // obterdados(idUnidade);
                     // alertar(novoRegistro, idUnidade);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
@@ -369,7 +395,7 @@
                     if (novoRegistro[0].nome == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
                         console.log("Nome do novo dado capturado:")
                         console.log(novoRegistro[0].nome)
                         console.log("Nome do último dado capturado:")
@@ -381,7 +407,7 @@
                         dados.labels.push(novoRegistro[0].nome); // incluir um novo momento
 
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].nome); // incluir uma nova medida de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].pontos); // incluir uma nova medida de umidade
 
 //                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
 //                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
