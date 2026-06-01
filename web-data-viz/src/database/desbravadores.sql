@@ -69,7 +69,7 @@ select * from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u
 right join Reuniao r on r.fkCadastro = c.id; -- join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id;
 select * from Presenca p right join Reuniao r on p.fkReuniao = r.id left join Membro m on m.id = p.fkMembro;
 
-CREATE VIEW todas_relacaoes_vw.desbravadores as
+CREATE VIEW desbravadores.todas_relacaoes_vw as
 select * from Membro m 
 LEFT JOIN Presenca p on p.fkMembro = m.id 
 LEFT JOIN Reuniao r on r.id = p.fkReuniao
