@@ -63,13 +63,27 @@ select * from Reuniao;
 select * from Presenca;
 delete from Membro where fkUnidade = 12;
 
-select count(*) as total_reunioes from Reuniao where fkCadastro =  11; -- sessionStorage
+select * from Reuniao where fkCadastro =  1; -- sessionStorage
 -- create view relacao
-select * from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
-right join Reuniao r on r.fkCadastro = c.id; -- join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id;
+
+create view vw_presenca as
+select m.nome, p.descricao 
+from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
+right join Reuniao r on r.fkCadastro = c.id left join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id
+where c.id = 1;
+
+select nome, count(*) as presenca from vw_presenca where descricao = 'Presente'
+group by nome order by presenca limit 5;
+
 select * from Presenca p right join Reuniao r on p.fkReuniao = r.id left join Membro m on m.id = p.fkMembro;
 
-CREATE VIEW desbravadores.todas_relacaoes_vw as
+select m.nome, count(*) from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
+right join Reuniao r on r.fkCadastro = c.id where c.id = 1
+group by m.nome; -- join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id;
+
+
+ 
+-- CREATE VIEW desbravadores.todas_relacaoes_vw as
 select * from Membro m 
 LEFT JOIN Presenca p on p.fkMembro = m.id 
 LEFT JOIN Reuniao r on r.id = p.fkReuniao

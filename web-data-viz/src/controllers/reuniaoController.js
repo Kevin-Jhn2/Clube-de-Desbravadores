@@ -98,8 +98,25 @@ function delreuniao(req, res) {
 
 }
 
+function obterDados(req, res) {
+
+  reuniaoModel.obterDados()
+  .then((resultado) => {
+    res.status(201).json(resultado);
+  }
+  ).catch((erro) => {
+    console.log(erro);
+    console.log(
+      "\nHouve um erro ao obter os dados! Erro: ",
+      erro.sqlMessage
+    );
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 
 module.exports = {
     addreuniao,
-    delreuniao
+    delreuniao,
+    obterDados
 }

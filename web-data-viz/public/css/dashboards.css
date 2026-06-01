@@ -437,3 +437,8 @@ canvas {
   margin-bottom: 100px;
   cursor: pointer;
 }
+
+#listaFrequencia {
+  display: flex;
+  flex-direction: column;
+}

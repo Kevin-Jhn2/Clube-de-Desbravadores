@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Clube</title>
 
-    
+
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="icon" href="../assets/icon/icon-desbravadores.png">
 
@@ -35,38 +35,38 @@
 <body>
 
     <header>
-        
+
         <nav>
-            
+
             <h2>Clube</h2>
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
-                <ul>
-                    <!-- <div class="btn-nav"> -->
-                    <a href="./reuniao copy.html">
-                        Reuniões
-                    </a>
-                    <!-- </div> -->
-                </ul>
-                <ul>
-                    <!-- <div class="btn-nav-white"> -->
-                        <a>
-                            Dashboard
-                        </a>
-                    <!-- </div> -->
-                </ul>
-                <ul>
-                    <a onclick="limparSessao()">
-                        Sair
-                    </a>
-                    <!-- <div class="btn-logout" onclick="limparSessao()"> -->
-                    <!-- </div> -->
-                </ul>
+            <ul>
+                <!-- <div class="btn-nav"> -->
+                <a href="./reuniao copy.html">
+                    Reuniões
+                </a>
+                <!-- </div> -->
+            </ul>
+            <ul>
+                <!-- <div class="btn-nav-white"> -->
+                <a>
+                    Dashboard
+                </a>
+                <!-- </div> -->
+            </ul>
+            <ul>
+                <a onclick="limparSessao()">
+                    Sair
+                </a>
+                <!-- <div class="btn-logout" onclick="limparSessao()"> -->
+                <!-- </div> -->
+            </ul>
 
         </nav>
 
-    </header>            
+    </header>
     <main>
 
 
@@ -74,8 +74,8 @@
             <div>Dashboard Desbravadores</div>
         </section> -->
 
-        
-<!--         
+
+        <!--         
         <section class="section1">
             <div class="grafico">
                 <div>
@@ -112,36 +112,54 @@
             </div>
         </section> -->
 
-<section class="section1">
+        <section class="section1">
 
-    <div class="grafico">
-    <div class="titulo-grafico">Desempenho por membro na Unidade</div>
-        <!-- <div class="teste"> -->
-            <div class="dash">
-                <div id="graficos"></div>
-                <!-- <div id="alerta"></div> -->
+            <div class="grafico">
+                <div class="titulo-grafico">Desempenho por membro na Unidade</div>
+                <!-- <div class="teste"> -->
+                <div class="dash">
+                    <div id="graficos"></div>
+                    <!-- <div id="alerta"></div> -->
+                </div>
+                <div class="btns-dash" id="btnUnidade">
+                </div>
+
             </div>
-            <div class="btns-dash" id="btnUnidade">
-        </div>
-    
-        </div>
-    </div>
+            </div>
 
-    <div class="grafico">
+            <!-- <div class="grafico">
         <div class="titulo-grafico">Gráfico de frequência total</div>
-        <div class="dash">
-                <canvas id="frequencia"></canvas>
-        </div>
-    </div>
-    <div class="lista">
-        <div class="titulo-grafico">
-            Membros com menor frequência
-        </div>
-        <div class="dash">
-            
-        </div>
-    </div>
-</section>
+    </div> -->
+            <div class="lista">
+                <div class="titulo-grafico">
+                    Membros com menor frequência
+                </div>
+                <div class="dash">
+                    <div id="listaFrequencia"></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bloco">
+                <div>
+                    Unidade com maior pontuação
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+            <div class="bloco">
+                <div>
+                    Desbravador com maior pontuação
+                </div>
+            </div>
+            <div class="bloco">
+                <div>
+                    Total de membros
+                </div>
+            </div>
+        </section>
 
 
 
@@ -156,9 +174,9 @@
 
 
 
-</main>
-    
-    
+    </main>
+
+
 </body>
 
 </html>
@@ -169,9 +187,66 @@
     let proximaAtualizacao;
 
     window.onload = exibirUnidadesPorUsuario();
+    window.onload = exibirMenorFrequencia();
+
+    function exibirMenorFrequencia() {
+        // var unidades = JSON.parse(sessionStorage.UNIDADES);
+
+        let nomes = [];
+
+        fetch(`/reunioes/obterDados/`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(` --------------------- Dados recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        document.getElementById("listaFrequencia").innerHTML += `
+                        <div>${resposta[i].nome}</div>
+                        `
+
+                    }
+            //         nomes.forEach(item => {
+            //             document.getElementById("listaFrequencia").innerHTML += `<br>
+            // <div>${item.nome}</div>
+            // `
+
+            //             // document.getElementById("graficos").innerHTML += `
+            //             //     <div id="grafico${item.id}" class="display-none">
+            //             //         <h3 class="tituloGraficos">
+            //             //             <span id="tituloUnidade${item.id}">${item.nome}</span>
+            //             //         </h3>
+            //             //         <div class="graph">
+            //             //             <canvas id="myChartCanvas${item.id}"></canvas>
+            //             //         </div>
+            //             //         <div class="label-captura">
+            //             //             <p id="avisoCaptura${item.id}" style="color: white"></p>
+            //             //         </div>
+            //             //     </div>
+            //             // `
+
+            //         });
+
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+        // if (unidades.length > 0) {
+        //     exibirUnidade(unidades[0].id)
+        // }
+    }
+
+
+
 
     // Vou usar esse aqui para exibir as unidades
-    
     function exibirUnidadesPorUsuario() {
         var unidades = JSON.parse(sessionStorage.UNIDADES);
         unidades.forEach(item => {
@@ -251,7 +326,7 @@
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDadosGrafico(idUnidade) {
-// somente busca os dados já existentes
+        // somente busca os dados já existentes
         alterarTitulo(idUnidade)
 
         if (proximaAtualizacao != undefined) {
@@ -281,7 +356,7 @@
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta, idUnidade) {
 
-// define o que vai plotar
+        // define o que vai plotar
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -296,16 +371,16 @@
                 data: [],
                 fill: true,
                 borderColor: 'rgb(75, 192, 192)',
-                
+
             }
-            // , {
-            //     label: 'Temperatura',
-            //     data: [],
-            //     fill: false,
-            //     borderColor: 'rgb(199, 52, 52)',
-            //     tension: 0.1
-            // }
-        ] // Se eu quiser mais dados, precisa de mais labels
+                // , {
+                //     label: 'Temperatura',
+                //     data: [],
+                //     fill: false,
+                //     borderColor: 'rgb(199, 52, 52)',
+                //     tension: 0.1
+                // }
+            ] // Se eu quiser mais dados, precisa de mais labels
         };
 
         console.log('----------------------------------------------')
@@ -377,7 +452,7 @@
 
 
     function atualizarGrafico(idUnidade, dados, myChart) {
-// plota no gráfico
+        // plota no gráfico
         fetch(`/membros/tempo-real/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
@@ -409,8 +484,8 @@
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].pontos); // incluir uma nova medida de umidade
 
-//                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-//                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                        //                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        //                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
 
                         myChart.update();
                     }
@@ -429,26 +504,6 @@
             });
 
     }
-
-function obterDadosFrequencia(){
-    
-}
-    var corpo = document.getElementById("frequencia");
-    var frequencia_total = new Chart(corpo, {
-        type: 'pie',
-        data: {
-            labels: [],
-            datasets: [{
-                label: '',
-                data: [],
-                fill: true,
-                borderColor: 'rgb(75, 192, 192)'
-            }]
-        }
-
-    })
-
-
 
 
 

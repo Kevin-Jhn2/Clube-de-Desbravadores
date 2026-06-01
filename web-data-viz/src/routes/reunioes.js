@@ -19,6 +19,9 @@ router.post("/delreuniao", function (req, res) {
     reuniaoController.delreuniao(req,res);
 });
 
+router.get("/obterDados", function (req, res) {
+    reuniaoController.obterDados(req, res);
+})
 
 
 

@@ -52,8 +52,21 @@ function delreuniao(idUsuario, data, descricao) {
     return database.executar(instrucaoSql);
 }
 
+function obterDados(){
+    console.log("Veio até o delreuniao");
+
+    var instrucaoSql = `
+        select nome, count(*) as presenca from vw_presenca where descricao = 'Presente'
+        group by nome order by presenca limit 5;
+    `;
+
+    console.log("Executando a instrução SQL; \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
 
 module.exports = {
     addreuniao,
-    delreuniao    
+    delreuniao,
+    obterDados 
 }
