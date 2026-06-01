@@ -208,6 +208,34 @@
         })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
+            
+            fetch("/unidades/ultimoId_unidade", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json"
+              },
+            }).then(function (response) {
+                // console.log("resposta: ", resposta);
+            
+            if(response.ok){
+                response.json().then(function(resposta) {
+                    
+                        console.log(`dados: ${JSON.stringify(resposta[0].id)}`);
+                        // console.log(`dados: ${resposta.json()}`);
+                        
+                        var ultimoIdUnidade = JSON.stringify(resposta[0].id);
+                        var unidadeVar = {
+                            "id": ultimoIdUnidade,
+                            "nome": nomeUnidadeVar,
+                            "fkCadastro": sessionStorage.ID_USUARIO
+                        }
+                        var todasUnidades = JSON.parse(sessionStorage.UNIDADES);
+                        todasUnidades.push(unidadeVar);
+                        sessionStorage.UNIDADES = JSON.stringify(todasUnidades);
+
+                })
+            }
+            })
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

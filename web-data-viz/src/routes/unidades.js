@@ -1,12 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-var aquarioController = require("../controllers/unidadeController");
 var unidadeController = require("../controllers/unidadeController")
 
-router.get("/:clubeId", function (req, res) {
-  unidadeController.buscarUnidadesPorClube(req, res);
-});
+// router.get("/:clubeId", function (req, res) {
+//   unidadeController.buscarUnidadesPorClube(req, res);
+// });
 
 router.post("/cadastrar", function (req, res) {
     console.log("Caiu no cadastrar no unidades");
@@ -29,5 +28,11 @@ router.post("/delmembro", function (req, res) {
 
   unidadeController.delmembro(req, res);
 });
+
+router.get("/ultimoId_unidade", function (req, res) {
+  console.log("Caiu no router");
+  
+  unidadeController.ultimoId_unidade(req, res);
+})
 
 module.exports = router;

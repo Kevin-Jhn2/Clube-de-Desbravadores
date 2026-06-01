@@ -3,8 +3,8 @@ var unidadeModel = require("../models/unidadeModel")
 
 function buscarUnidadesPorClube(req, res) {
   var idUsuario = req.params.idUsuario;
-  var fkCadastro = req.params.fkcadastro;
-  unidadeModel.buscarUnidadesPorClube(fkCadastro).then((resultado) => {
+
+  unidadeModel.buscarUnidadesPorClube(idUsuario).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -145,10 +145,29 @@ function delmembro(req, res){
 }
 
 
+function ultimoId_unidade(req, res){
+
+
+    unidadeModel.ultimoId_unidade()
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }
+      ).catch((erro) => {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  
+
+}
 module.exports = {
   buscarUnidadesPorClube,
   cadastrar,
   deletar,
   addmembro,
-  delmembro
+  delmembro,
+  ultimoId_unidade
 }

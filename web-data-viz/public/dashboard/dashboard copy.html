@@ -130,7 +130,7 @@
     <div class="grafico">
         <div class="titulo-grafico">Gráfico de frequência total</div>
         <div class="dash">
-            <div id="frequencia"></div>
+                <canvas id="frequencia"></canvas>
         </div>
     </div>
     <div class="lista">
@@ -429,4 +429,34 @@
             });
 
     }
+
+function obterDadosFrequencia(){
+    
+}
+    var corpo = document.getElementById("frequencia");
+    var frequencia_total = new Chart(corpo, {
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+                label: '',
+                data: [],
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)'
+            }]
+        }
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

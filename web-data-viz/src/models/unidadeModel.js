@@ -2,9 +2,9 @@
 
 var database = require("../database/config");
 
-function buscarUnidadesPorClube(id) {
+function buscarUnidadesPorClube(idUsuario) {
 
-  var instrucaoSql = `SELECT * FROM Unidade u WHERE fkCadastro = ${id};`;
+  var instrucaoSql = `SELECT * FROM Unidade WHERE fkCadastro = ${idUsuario};`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -58,11 +58,23 @@ console.log("Executando a instrução SQL; \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function ultimoId_unidade (){
+  console.log("Caiu no ultimoId_unidade");
+
+  var instrucaoSql = `
+  SELECT id FROM Unidade order by id desc limit 1;
+  `;
+
+console.log("Executando a instrução SQL; \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   buscarUnidadesPorClube,
   cadastrar,
   deletar,
   addmembro,
-  delmembro
+  delmembro,
+  ultimoId_unidade
 }
