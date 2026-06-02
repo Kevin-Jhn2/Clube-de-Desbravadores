@@ -9,7 +9,10 @@ body{
     flex-direction: column;
     min-height: 200vh;
 }   
-
+h2{
+    display: flex;
+    justify-content: center;
+}
 header{
     display:flex;
     justify-content: center;
@@ -20,7 +23,7 @@ header{
 nav{
     display: flex;
     justify-content: space-evenly;
-    background-image: linear-gradient(rgb(240, 202, 52), rgba(240, 180, 52, 0.7));
+    background-image: linear-gradient(rgb(240, 202, 52), rgba(240, 180, 52, 0.9));
     position: sticky;
     top: 0;
     width: 100%;
@@ -28,6 +31,16 @@ nav{
     /* f0ca34 */
     /* (rgb(66, 71, 250), rgb(74, 0, 192)) */
 }
+nav ul a{
+    text-decoration: none;
+    color: black;
+}
+/* .logotipo{
+    background-image: url("../assets/imgs/logotipo.png");
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+} */
 main{
     flex: 1;
 }
@@ -90,3 +103,14 @@ footer{
 }
 
 /* cor amarela #faf542 */
+.imagem3{
+
+    border-radius: 100%;
+    display: flex;
+    justify-self: center;
+    height: 200px;
+    width: 200px;
+    background-image: url("../assets/imgs/IMG-20260212-WA0039.jpg") ;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

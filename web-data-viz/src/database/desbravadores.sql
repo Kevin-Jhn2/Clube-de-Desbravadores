@@ -147,6 +147,19 @@ INSERT INTO Membro (nome, pontos, fkUnidade) VALUES
 ('Diego Souza', 130, 8),
 ('Elena Gilbert', 195, 9);
 
+INSERT INTO Membro (nome, pontos, fkUnidade) VALUES
+('Lucas Oliveira 2', 75, 1),
+('Julia Almeida 2', 90, 1),
+('Mateus Henrique 2', 12, 1),
+('Larissa Manoela 2', 100, 1),
+('Thiago Soares 2', 70, 1),
+('Amanda Vieira 2', 110, 1),
+('Bruno Rodrigues 2', 190, 1),
+('Camila Pitanga 2', 105, 1),
+('Diego Souza 2', 100, 1),
+('Elena Gilbert 2', 105, 1);
+
+
 INSERT INTO Reuniao (data_reuniao, descricao, fkCadastro) VALUES
 ('2026-03-01', 'Reunião de Abertura do Ano Letivo', 1),
 ('2026-03-08', 'Planejamento de Campori', 1),
