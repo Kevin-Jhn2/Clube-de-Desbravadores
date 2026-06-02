@@ -26,6 +26,8 @@ function cadastrar(idUsuario, nomeUnidade) {
 function deletar(idUsuario, nomeUnidade){
   console.log("caiu no deletar");
   var instrucaoSql = `
+  set @idUnidade = (SELECT id FROM Unidade where fkCadatro = ${idUsuario} AND nome = ${nomeUnidade});
+  DELETE FROM Membro where fkUnidade = @idUnidade;
   DELETE FROM Unidade where nome = '${nomeUnidade}' AND fkCadastro = ${idUsuario};
   `;
 
@@ -69,6 +71,20 @@ console.log("Executando a instrução SQL; \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function obterDados(idUsuario){
+  console.log("Caiu no obterDados Model");
+
+  var instrucaoSql = `
+    SELECT u.nome, SUM(pontos) AS total_pontos FROM Membro m
+    JOIN Unidade u on m.fkUnidade = u.id
+    where fkCadastro = ${idUsuario}
+    group by u.id order by total_pontos desc limit 1;
+  `;
+
+console.log("Executando a instrução SQL; \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+  
+}
 
 module.exports = {
   buscarUnidadesPorClube,
@@ -76,5 +92,6 @@ module.exports = {
   deletar,
   addmembro,
   delmembro,
-  ultimoId_unidade
+  ultimoId_unidade,
+  obterDados
 }

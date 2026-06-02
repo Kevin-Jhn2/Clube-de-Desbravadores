@@ -100,18 +100,24 @@ function delreuniao(req, res) {
 
 function obterDados(req, res) {
 
-  reuniaoModel.obterDados()
+  id_Usuario = req.params.idUsuarioVar;
+if(id_Usuario == undefined){
+  res.status(400).send("id_Usuario está undefined!");
+}else {
+
+  reuniaoModel.obterDados(id_Usuario)
   .then((resultado) => {
     res.status(201).json(resultado);
   }
-  ).catch((erro) => {
-    console.log(erro);
-    console.log(
-      "\nHouve um erro ao obter os dados! Erro: ",
-      erro.sqlMessage
-    );
-    res.status(500).json(erro.sqlMessage);
-  });
+).catch((erro) => {
+  console.log(erro);
+  console.log(
+    "\nHouve um erro ao obter os dados! Erro: ",
+    erro.sqlMessage
+  );
+  res.status(500).json(erro.sqlMessage);
+});
+}
 }
 
 

@@ -20,7 +20,6 @@ create table Unidade (
     constraint fk_cadastro foreign key (fkCadastro)
     references Cadastro (id)
 );
-desc Unidade;
 
 create table Membro (
 	id int primary key auto_increment,
@@ -31,7 +30,6 @@ create table Membro (
     references Unidade(id)
     
 );
-desc Membro;
 
 create table Reuniao (
 id int primary key auto_increment,
@@ -41,7 +39,6 @@ fkCadastro int,
 constraint fk_cadastroReuniao foreign key (fkCadastro)
 references Cadastro(id)
 );
-desc Reuniao;
 
 create table Presenca (
 	fkReuniao int NOT NULL,
@@ -54,29 +51,49 @@ create table Presenca (
     references Membro (id),
     constraint pk_presenca primary key (fkReuniao, fkMembro)
 );
-desc Presenca;
-select * from Unidade;
-select id from Unidade where fkCadastro = 1;
-select * from Membro where fkUnidade = 12;
-select * from Cadastro;
-select * from Reuniao;
-select * from Presenca;
-delete from Membro where fkUnidade = 12;
 
-select * from Reuniao where fkCadastro =  1; -- sessionStorage
--- create view relacao
+-- create view presenca
 
-create view vw_presenca as
-select m.nome, p.descricao 
+create or replace view vw_presenca as
+select m.nome, p.descricao, c.id   
 from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
 right join Reuniao r on r.fkCadastro = c.id left join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id
-where c.id = 1;
+;
 
-select nome, count(*) as presenca from vw_presenca where descricao = 'Presente'
+select nome, count(*) as presenca
+ from vw_presenca where descricao = 'Presente' AND id = 12
 group by nome order by presenca limit 5;
+
+select * from vw_presenca;
 
 select * from Presenca p right join Reuniao r on p.fkReuniao = r.id left join Membro m on m.id = p.fkMembro;
 
+select u.nome, SUM(pontos) as total_pontos from Membro m JOIN Unidade u on m.fkUnidade = u.id where fkCadastro = 1
+group by u.id order by total_pontos desc limit 1;
+
+select m.nome, m.pontos from Membro m JOIN Unidade u on u.id = m.fkUnidade where fkCadastro = 1 order by m.pontos desc limit 1;
+
+
+SELECT * FROM Membro m JOIN Unidade u on u.id = m.fkUnidade where fkCadastro = 1;
+
+    select nome, count(*) as presenca, id
+    from vw_presenca where descricao = 'Presente' AND id = 13
+    group by nome order by presenca limit 5;
+
+	select * from vw_presenca where id = 13;
+    select * from Reuniao;
+    select * from Presenca;
+    select * from Unidade;
+    select * from Membro;
+	DELETE FROM Membro where fkUnidade = 53;
+
+    
+	select nome, count(nome) as presenca from vw_presenca
+    where id = 1 AND ifnull(descricao, 'Ausente') in ('Justificado', 'Ausente') 
+    group by nome order by presenca limit 5;
+    
+SELECT COUNT(m.nome) FROM Membro m JOIN Unidade u on u.id = m.fkUnidade where fkCadastro = 12 group by fkCadastro;
+select * from Cadastro;
 select m.nome, count(*) from Membro m JOIN Unidade u on m.fkUnidade = u.id JOIN Cadastro c on u.fkCadastro = c.id
 right join Reuniao r on r.fkCadastro = c.id where c.id = 1
 group by m.nome; -- join Presenca p on p.fkReuniao = r.id AND p.fkMembro = m.id;

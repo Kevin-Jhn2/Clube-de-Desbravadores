@@ -21,6 +21,16 @@ router.get("/tempo-real/:idUnidade", function (req, res) {
     membroController.buscarMedidasEmTempoReal(req, res);
 });
 
+router.get("/obterDados/:idUsuario", function (req, res) {
+    membroController.obterDados(req, res);
+});
+
+router.get("/obterTotal/:idUsuario", function (req, res) {
+    membroController.obterTotal(req, res);
+});
+
+
+
 
 
 

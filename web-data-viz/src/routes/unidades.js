@@ -35,4 +35,10 @@ router.get("/ultimoId_unidade", function (req, res) {
   unidadeController.ultimoId_unidade(req, res);
 })
 
+router.get("/obterDados/:idUsuarioVar", function (req, res) {
+  console.log("Caiu no router");
+  
+  unidadeController.obterDados(req, res);
+})
+
 module.exports = router;

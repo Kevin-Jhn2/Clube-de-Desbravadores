@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script> -->
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -142,21 +142,30 @@
 
         <section>
             <div class="bloco">
-                <div>
+                <div class="titulo-grafico">
                     Unidade com maior pontuação
                 </div>
+                <div class="dash">
+                    <div id="maiorPontuacao"></div>
+                </div>
                 <div>
-                    
+
                 </div>
             </div>
             <div class="bloco">
                 <div>
-                    Desbravador com maior pontuação
+                    Membro com maior pontuação
+                </div>
+                <div class="dash">
+                    <div id="desbravadorPontuacao"></div>
                 </div>
             </div>
             <div class="bloco">
                 <div>
                     Total de membros
+                </div>
+                <div class="dash">
+                    <div id="totalMembros"></div>
                 </div>
             </div>
         </section>
@@ -188,13 +197,94 @@
 
     window.onload = exibirUnidadesPorUsuario();
     window.onload = exibirMenorFrequencia();
+    window.onload = exibirUnidadeMaiorPontuacao();
+    window.onload = exibirMembroMaiorPontuacao();
+    window.onload = exibirTotalMembros();
+
+
+
+    function exibirTotalMembros() {
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+
+        fetch(`/membros/obterTotal/${idUsuarioVar}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Esses foram os nomes recebidos como resposta recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+                    document.getElementById("totalMembros").innerHTML = `
+                    <div>${resposta[0].total}</div>
+                    `
+                });
+            } else {
+                console.log("deu ruim foi else");
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.log("deu ruim foi catch");
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
+
+
+    function exibirMembroMaiorPontuacao() {
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        fetch(`/membros/obterDados/${idUsuarioVar}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Esses foram os nomes recebidos como resposta recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+
+                    document.getElementById("desbravadorPontuacao").innerHTML = `
+                    <div>${resposta[0].nome} - ${resposta[0].pontos}</div>
+                    
+                    `
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
+
+    function exibirUnidadeMaiorPontuacao() {
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        fetch(`/unidades/obterDados/${idUsuarioVar}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(` --------------------- Dados recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+
+                    document.getElementById("maiorPontuacao").innerHTML = `
+                    <div>${resposta[0].nome} - ${resposta[0].total_pontos}</div>
+                    `
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
 
     function exibirMenorFrequencia() {
-        // var unidades = JSON.parse(sessionStorage.UNIDADES);
 
-        let nomes = [];
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
 
-        fetch(`/reunioes/obterDados/`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/reunioes/obterDados/${idUsuarioVar}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(` --------------------- Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -206,26 +296,26 @@
                         `
 
                     }
-            //         nomes.forEach(item => {
-            //             document.getElementById("listaFrequencia").innerHTML += `<br>
-            // <div>${item.nome}</div>
-            // `
+                    //         nomes.forEach(item => {
+                    //             document.getElementById("listaFrequencia").innerHTML += `<br>
+                    // <div>${item.nome}</div>
+                    // `
 
-            //             // document.getElementById("graficos").innerHTML += `
-            //             //     <div id="grafico${item.id}" class="display-none">
-            //             //         <h3 class="tituloGraficos">
-            //             //             <span id="tituloUnidade${item.id}">${item.nome}</span>
-            //             //         </h3>
-            //             //         <div class="graph">
-            //             //             <canvas id="myChartCanvas${item.id}"></canvas>
-            //             //         </div>
-            //             //         <div class="label-captura">
-            //             //             <p id="avisoCaptura${item.id}" style="color: white"></p>
-            //             //         </div>
-            //             //     </div>
-            //             // `
+                    //             // document.getElementById("graficos").innerHTML += `
+                    //             //     <div id="grafico${item.id}" class="display-none">
+                    //             //         <h3 class="tituloGraficos">
+                    //             //             <span id="tituloUnidade${item.id}">${item.nome}</span>
+                    //             //         </h3>
+                    //             //         <div class="graph">
+                    //             //             <canvas id="myChartCanvas${item.id}"></canvas>
+                    //             //         </div>
+                    //             //         <div class="label-captura">
+                    //             //             <p id="avisoCaptura${item.id}" style="color: white"></p>
+                    //             //         </div>
+                    //             //     </div>
+                    //             // `
 
-            //         });
+                    //         });
 
 
                 });
@@ -440,7 +530,7 @@
             config
         );
 
-        setTimeout(() => atualizarGrafico(idUnidade, dados, myChart), 2000); // Ele ainda não inseriu, só insere no atualizarGrafico
+        setTimeout(() => atualizarGrafico(idUnidade, dados, myChart), 10000); // Ele ainda não inseriu, só insere no atualizarGrafico
     }
 
 

@@ -163,11 +163,32 @@ function ultimoId_unidade(req, res){
   
 
 }
+
+function obterDados (req, res){
+  var idUsuario = req.params.idUsuarioVar;
+
+    unidadeModel.obterDados(idUsuario)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }
+      ).catch((erro) => {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+
+}
+
+
 module.exports = {
   buscarUnidadesPorClube,
   cadastrar,
   deletar,
   addmembro,
   delmembro,
-  ultimoId_unidade
+  ultimoId_unidade,
+  obterDados
 }

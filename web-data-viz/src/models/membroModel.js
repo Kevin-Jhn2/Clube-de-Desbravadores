@@ -88,8 +88,8 @@ var database = require("../database/config");
 //     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 //     return database.executar(instrucaoSql);
 // }
-function addpontos(idUsuario, pontos, membro, unidade){
-    
+function addpontos(idUsuario, pontos, membro, unidade) {
+
     var instrucaoSql = `
     set @idUnidade = (SELECT id FROM Unidade where nome = '${unidade}' AND fkCadastro = ${idUsuario});
     set @pontos = (SELECT pontos FROM Membro where nome = '${membro}' AND fkUnidade = @idUnidade);
@@ -99,12 +99,12 @@ function addpontos(idUsuario, pontos, membro, unidade){
     return database.executar(instrucaoSql);
 }
 
-function delpontos(idUsuario, pontos, membro, unidade){
-    
+function delpontos(idUsuario, pontos, membro, unidade) {
+
     var instrucaoSql = `
     set @idUnidade = (SELECT id FROM Unidade where nome = '${unidade}' AND fkCadastro = ${idUsuario});
     set @pontos = (SELECT pontos FROM Membro where nome = '${membro}' AND fkUnidade = @idUnidade);
-    UPDATE Membro set pontos = (ifnull(@pontos, 0) - ${pontos}) where fkUnidade = 2 AND nome = '${membro}';
+    UPDATE Membro set pontos = (ifnull(@pontos, 0) - ${pontos}) where fkUnidade = @idUnidade AND nome = '${membro}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -118,7 +118,7 @@ function buscarUltimasMedidas(idUnidade, limite_linhas) {
                     FROM Membro
                     WHERE fkUnidade = ${idUnidade}
                     ORDER BY id DESC -- LIMIT ${limite_linhas}`;
-                    
+
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -136,11 +136,36 @@ function buscarMedidasEmTempoReal(idUnidade) {
     return database.executar(instrucaoSql);
 }
 
+function obterDados(idUsuario) {
+    var instrucaoSql = `
+        SELECT m.nome, m.pontos FROM Membro m 
+        JOIN Unidade u on u.id = m.fkUnidade 
+        where fkCadastro = ${idUsuario} order by m.pontos desc limit 1;
+                    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
+
+function obterTotal(idUsuario) {
+    var instrucaoSql = `
+        SELECT COUNT(m.nome) as total FROM Membro m
+        JOIN Unidade u on u.id = m.fkUnidade 
+        where fkCadastro = ${idUsuario} group by fkCadastro;
+                    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
 
 
 module.exports = {
     addpontos,
     delpontos,
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal    
+    buscarMedidasEmTempoReal,
+    obterDados,
+    obterTotal
 }

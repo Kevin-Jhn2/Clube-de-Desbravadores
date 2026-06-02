@@ -141,19 +141,6 @@
         </div>
     </section>
     
-    <section class="gestao">
-        <h1>Gestão</h1>
-        <div class="card">
-            <div>
-                <h3>Presença</h3>
-                <input type="text" id="" placeholder="Data">
-                <input type="text" id="" placeholder="Membro">
-                <button>Adicionar presença</button>
-                <button>Remover presença</button>
-            </div>
-        </div>
-    </section>
-
     <section class="reuniao">
         <h1>Reunião</h1>
         <div class="card">
@@ -175,7 +162,9 @@
 
         </div>
     </section>
-<!--     
+
+
+    <!--     
     <div id="div_aguardar" class="loading-div">
         <img src="./assets/circle-loading.gif" id="loading-gif" />
     </div> -->
@@ -195,7 +184,23 @@
         function addunidades(){
         var nomeUnidadeVar = iptUnidade.value;
         var idUsuarioVar = sessionStorage.ID_USUARIO;
-        
+
+        var unidades = JSON.parse(sessionStorage.UNIDADES)
+
+            var naoencontrou = true;
+            for(let i = 0; i < unidades.length; i++){
+                if(unidades[i].nome == nomeUnidadeVar){
+                    alert(`A unidade ${nomeUnidadeVar} já existe!`)
+                    naoencontrou = false;
+                    break
+                }
+            };
+
+            if(!naoencontrou){
+                return                
+            }
+     
+     
         fetch("/unidades/cadastrar", {
             method: "POST",
             headers: {
@@ -208,7 +213,9 @@
         })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
-            
+
+            alert(`A unidade ${nomeUnidadeVar} foi adicionada`);
+
             fetch("/unidades/ultimoId_unidade", {
               method: "GET",
               headers: {
@@ -231,6 +238,9 @@
                         }
                         var todasUnidades = JSON.parse(sessionStorage.UNIDADES);
                         todasUnidades.push(unidadeVar);
+                        if(todasUnidades[0].nome == null){
+                            todasUnidades.shift();
+                        }
                         sessionStorage.UNIDADES = JSON.stringify(todasUnidades);
 
                 })
@@ -242,75 +252,24 @@
             finalizarAguardar()
         })
 
+            
 
-
-    //     if(nomeUnidadeVar == ""){
-    //         cardErro.style.display = "block";
-    //   mensagem_erro.innerHTML =
-    //     "(Mensagem de erro para todos os campos em branco)";
-
-    //   finalizarAguardar();
-    //   return false;
-    // } else {
-    //   setInterval(sumirMensagem, 5000);
-    // }
-        // // JSON unidade, contém nome, membros (array) e pontuação
-        // let unidade = {
-        //     nome: nomeUnidade,
-        //     membros: [],
-        //     pontos: 0
-        // }
-        // Adicionar unidade, verificando se há replica e se os campos foram preenchidos
-    //     if(nomeUnidade == ""){
-    //         console.log("Campo não preenchido")
-    //     }else{
-    //         // Réplicas de Unidade, talvez eu devesse colocar somente se o nome for o mesmo
-    //         let duplicata = false;
-    //         for(let i = 0; i <clube.length; i++){
-    //             let elementoUnidade = clube[i];
-    //             if(elementoUnidade.nome.toLowerCase() == nomeUnidade.toLowerCase()){
-    //                 duplicata = true;
-    //                 break;
-    //             };
-    //         };
-    //         console.log(duplicata)
-    //         if(duplicata == false){
-    //             clube.push(unidade);
-    //             console.log(`Unidade ${unidade.nome} adicionada: `, JSON.stringify(clube, null, 2));
-    //         }else{
-
-    //             // Deixa mais bonito  
-    //             // console.table(clube)
-    //             console.log(`Unidade ${nomeUnidade} já existe: `, JSON.stringify(clube, null, 2));
-    //             // console.log(JSON.stringify(clube, null, 2)); Deixa já aberto
-    //             // console.log( clube); aparece como clickável
-    //         };
-    //         iptUnidade.value = ""
-    //     };
+    
     }
-
-    // function exibirUnidades() {
-    //     JSON.parse(sessionStorage.UNIDADES).forEach(item => {
-    //         document.getElementById("cardUnidades").innerHTML += `
-    //                 <div class="card-aquario">
-    //                     <div class="title-aquario">
-    //                         <h1>${item.nome}</h1>
-    //                     </div>
-    //                     <div class="desc-aquario">
-    //                     <div class="temperatura">
-    //                         <p id="temp_aquario_${item.id}">-°C</p>
-    //                     </div>
-    //                     <div class="cor-alerta" id="card_${item.id}"></div>
-    //                 </div>
-    //                 </div>
-    //                 `
-    //     });
-    // }
 
     function delunidades(){
         var nomeUnidadeVar = iptUnidade.value;
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         
+        var confirmar = confirm(`Você deseja deletar ${nomeUnidadeVar}?`)
+
+        if(!confirmar){
+            alert("Exclusão cancelada");
+            return;
+        }else{
+            alert("Exclusão em andamento")
+        }
+
         fetch("/unidades/deletar", {
             method: "POST",
             headers: {
@@ -336,6 +295,7 @@
         var nomeMembroVar = iptMembro.value
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         
+        alert(`Membro ${nomeMembroVar} adicionado`)
         fetch("/unidades/addmembro", {
             method: "POST",
             headers: {
@@ -364,6 +324,15 @@
         var nomeMembroVar = iptMembro.value
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         
+        var confirmar = confirm(`Você deseja remover o membro ${nomeMembroVar}?`);
+
+        if(!confirmar){
+            alert("Exclusão cancelada");
+            return
+        }else {
+            alert("Exclusão em andamento")
+        }
+
         fetch("/unidades/delmembro", {
             method: "POST",
             headers: {
@@ -389,6 +358,8 @@
         var descricaoVar = iptDescricao.value;
         var idUsuarioVar = sessionStorage.ID_USUARIO;
 
+        alert(`A reunião ${descricaoVar} com data ${dataVar} foi adicionada`)
+
         fetch("/reunioes/addreuniao", {
             method: "POST",
             headers: {
@@ -413,6 +384,15 @@
         var dataVar = iptData.value;
         var descricaoVar = iptDescricao.value;
         var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        var confirmar = confirm(`Você deseja remover a reunião ${descricaoVar} com data ${dataVar}?`);
+
+        if(!confirmar){
+            alert("Exclusão cancelada");
+            return
+        }else {
+            alert("Exclusão em andamento")
+        }
 
         fetch("/reunioes/delreuniao", {
             method: "POST",
@@ -443,6 +423,8 @@
         var nomeUnidadeVar = ipt_unidade_reuniao.value;
         var situacaoVar = ipt_situacao.value;
 
+
+        
         fetch("/presencas/addsituacao", {
             method: "POST",
             headers: {
@@ -459,6 +441,7 @@
         })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
+            alert(`Situação ${situacaoVar} adicionada a ${nomeMembroVar} na reunião ${descricaoVar} do dia ${dataVar}`)
         })
         .catch(function(resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -473,6 +456,16 @@
         var nomeMembroVar = ipt_presenca.value;
         var nomeUnidadeVar = ipt_unidade_reuniao.value;
         var situacaoVar = ipt_situacao.value;
+
+        var confirmar = confirm(`Você deseja remover a situação ${situacaoVar} da reunião ${descricaoVar} com data ${dataVar}?`);
+
+        if(!confirmar){
+            alert("Exclusão cancelada");
+            return
+        }else {
+            alert("Exclusão em andamento")
+        }
+
 
         fetch("/presencas/delsituacao", {
             method: "POST",
@@ -517,6 +510,7 @@
         })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
+            alert(`${pontoVar} pontos adicionados a ${membroVar}`)
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -528,6 +522,16 @@
         var pontoVar = ipt_ponto.value;
         var membroVar = ipt_membro.value;
         var unidadeVar = ipt__unidade.value;
+
+        var confirmar = confirm(`Você deseja remover ${pontoVar} pontos de ${membroVar}?`);
+
+        if(!confirmar){
+            alert("Exclusão cancelada");
+            return
+        }else {
+            alert("Exclusão em andamento")
+        }
+
 
         fetch("/membros/delpontos", {
             method: "POST",
