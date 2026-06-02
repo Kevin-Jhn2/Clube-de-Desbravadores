@@ -16,6 +16,16 @@ nav{
     /* f0ca34 */
     /* (rgb(66, 71, 250), rgb(74, 0, 192)) */
 }
+img{
+    height: 40px;
+    border-radius: 40%;
+}
+.logotipo{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
 .section1{
     display: flex;
     justify-content: center;

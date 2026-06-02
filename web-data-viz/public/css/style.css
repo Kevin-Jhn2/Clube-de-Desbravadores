@@ -35,12 +35,16 @@ nav ul a{
     text-decoration: none;
     color: black;
 }
-/* .logotipo{
-    background-image: url("../assets/imgs/logotipo.png");
-    width: 40px;
+img{
+    /* width: 40px 40px; */
     height: 40px;
-    background-size: cover;
-} */
+    border-radius: 100%;
+}
+.logotipo{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
 main{
     flex: 1;
 }
